@@ -1,6 +1,6 @@
 const axios = require('axios')
 class RequestManager {
-    static baseUrl = 'http://localhost:3000/dev'
+    static baseUrl = 'https://v2lu4dcv0l.execute-api.us-east-1.amazonaws.com/dev/'
 
     static async getVideos() {
         return await this.get(`${this.baseUrl}/videos`);
