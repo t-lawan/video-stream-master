@@ -1,13 +1,12 @@
 const axios = require('axios')
 class RequestManager {
-    static baseUrl = 'https://v2lu4dcv0l.execute-api.us-east-1.amazonaws.com/dev/'
 
     static async getVideos() {
-        return await this.get(`${this.baseUrl}/videos`);
+        return await this.get(`https://v2lu4dcv0l.execute-api.us-east-1.amazonaws.com/dev/videos`);
     }
 
 
-    static get = async (url) => {
+    static async get (url) {
         let config = {
             headers: {
                 'Content-Type': 'application/json'
@@ -16,7 +15,7 @@ class RequestManager {
         return await axios.get(url, config);
     }
 
-    static post = async (url, data) => {
+    static async post (url, data) {
         const d = JSON.stringify(data); 
         let config = {
             headers: {
