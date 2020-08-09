@@ -5,6 +5,10 @@ class RequestManager {
         return await this.get(`https://v2lu4dcv0l.execute-api.us-east-1.amazonaws.com/dev/videos`);
     }
 
+    static async getScreens() {
+        return await this.get(`https://v2lu4dcv0l.execute-api.us-east-1.amazonaws.com/dev/videos`);
+    }
+
 
     static async get (url) {
         let config = {
