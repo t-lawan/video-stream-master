@@ -68,5 +68,6 @@ app.listen(PORT, async () => {
   console.log("Listening on port: " + PORT);
   let response = await request.getVideos();
   let videos = response.data.data;
+  console.log('VIDEOS', videos)
   fileManager.storeVideos(videos);
 });
