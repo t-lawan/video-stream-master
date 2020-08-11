@@ -15,14 +15,20 @@ app.get("", (req, res) => {
 // Add dummy video to assets folder
 //
 
-app.get("/video", function(req, res) {
-  const path = "assets/vid_01.mp4";
+app.get("/video/:videoId", function(req, res) {
+  let videoId = req.params.videoId
+  let videos = fileManager.getVideos();
+
+  let video = videos.find((vid) => {
+    return vid.id === videoId
+  })
+
+  const path = video ? `assets/${video.uri}` : `assets/${video[0].uri}`;
+
   const stat = fs.statSync(path);
   const fileSize = stat.size;
   const range = req.headers.range;
-  let videos = fileManager.getVideos();
 
-  console.log('VIDEOS', videos)
 
   if (range) {
     const parts = range.replace(/bytes=/, "").split("-");
