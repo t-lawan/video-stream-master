@@ -42,7 +42,8 @@ app.get("/video", function(req, res) {
       "Content-Range": `bytes ${start}-${end}/${fileSize}`,
       "Accept-Ranges": "bytes",
       "Content-Length": chunksize,
-      "Content-Type": "video/mp4"
+      "Content-Type": "video/mp4", 
+      "Access-Control-Allow-Origin": "*"
     };
 
     res.writeHead(206, head);
