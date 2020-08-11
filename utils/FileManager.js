@@ -1,7 +1,5 @@
 const fs = require('fs');
 class FileManager {
-    static baseUrl = 'http://localhost:3000/dev'
-
     static storeVideos(videos) {
         let text = JSON.stringify(videos)
         fs.writeFile('assets/video.json', text, (err) => {
