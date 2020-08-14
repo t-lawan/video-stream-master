@@ -5,15 +5,18 @@ const app = express();
 const request = require("../utils/RequestManager");
 const fileManager = require("../utils/FileManager");
 const PORT = 8080;
+const WebsocketClient = require('ws');
+const EWSClientType = require('../utils/Enums').EWSClientType
+const EWSMessageType = require('../utils/Enums').EWSMessageType
+
+// Define WebSocketClient
+let client = new WebsocketClient("wss://cs70esocmi.execute-api.us-east-1.amazonaws.com/dev/");
 
 app.use(express.static(path.join(__dirname, "public")));
 
 app.get("", (req, res) => {
   res.send("Hi");
 });
-
-// Add dummy video to assets folder
-//
 
 app.get("/video/:videoId", function(req, res) {
   let videoId = req.params.videoId
@@ -24,11 +27,9 @@ app.get("/video/:videoId", function(req, res) {
   })
 
   const path = video ? `assets/${video.uri}` : `assets/${video[0].uri}`;
-
   const stat = fs.statSync(path);
   const fileSize = stat.size;
   const range = req.headers.range;
-
 
   if (range) {
     const parts = range.replace(/bytes=/, "").split("-");
@@ -64,10 +65,52 @@ app.get("/video/:videoId", function(req, res) {
   }
 });
 
+function websocketOpen(r) {
+  console.log('onOpen', r);
+  let message = JSON.stringify({
+    client_type: EWSClientType.MASTER,
+    message: EWSMessageType.INITIALISE,
+    raspberry_pi_id: 1
+  });
+  client.send(message)
+}
+
+function websocketClose() {
+  console.log('onClose')
+}
+
+function websocketMessage(e) {
+  console.log('onMessage')
+  if (typeof e.data === 'string') {
+    let message = JSON.parse(e.data);
+
+    switch(message.message) {
+      case EWSMessageType.START_AUDIO:
+        console.log('PLAY AUDIO');
+        break;
+      case EWSMessageType.START_SCHEDULE:
+        console.log('START SCHEDULE');
+        break;
+    }
+    if(message.message === EWSMessageType.START_PLAYLIST)
+    console.log("Received: '" + e.data + "'");
+  }
+}
+
+function setClientFunctions() {
+  client.onopen = websocketOpen;
+  client.onclose = websocketMessage;
+  client.onmessage = websocketClose;
+}
+
+
+
 app.listen(PORT, async () => {
   console.log("Listening on port: " + PORT);
   let response = await request.getVideos();
   let videos = response.data.data;
   console.log('VIDEOS', videos)
   fileManager.storeVideos(videos);
+  setClientFunctions();
 });
+
