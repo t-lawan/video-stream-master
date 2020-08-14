@@ -9,8 +9,6 @@ const WebsocketClient = require('ws');
 const EWSClientType = require('../utils/Enums').EWSClientType
 const EWSMessageType = require('../utils/Enums').EWSMessageType
 
-// Define WebSocketClient
-let client = new WebsocketClient("wss://cs70esocmi.execute-api.us-east-1.amazonaws.com/dev/");
 
 app.use(express.static(path.join(__dirname, "public")));
 
@@ -65,25 +63,53 @@ app.get("/video/:videoId", function(req, res) {
   }
 });
 
-function websocketOpen(r) {
-  console.log('onOpen', r);
+
+// Define WebSocketClient
+let client;
+
+function onWebsocketOpen(r) {
+  console.log('onOpen');
+  initialiseWebsocketOpen()
+}
+
+/**
+ * This function sends a message with details to the Websocket server on initalising
+ *
+ */
+function initialiseWebsocketOpen() {
   let message = JSON.stringify({
     client_type: EWSClientType.MASTER,
     message: EWSMessageType.INITIALISE,
     raspberry_pi_id: 1
   });
-  client.send(message)
+  client.send(message, function (err){
+    if(err) {
+      setTimeout(() => {
+        initialiseWebsocketOpen();
+      }, 500);
+    } else {
+      onStartUp()
+    }
+  });
 }
 
-function websocketClose() {
+/**
+ *
+ *
+ */
+function onWebsocketClose() {
   console.log('onClose')
 }
 
-function websocketMessage(e) {
+/**
+ * This function handles incoming messages from websocket server
+ *
+ * @param {*} e
+ */
+function onWebsocketMessage(r) {
   console.log('onMessage')
-  if (typeof e.data === 'string') {
-    let message = JSON.parse(e.data);
-
+  if (typeof r.data === 'string') {
+    let message = JSON.parse(r.data);
     switch(message.message) {
       case EWSMessageType.START_AUDIO:
         console.log('PLAY AUDIO');
@@ -91,26 +117,103 @@ function websocketMessage(e) {
       case EWSMessageType.START_SCHEDULE:
         console.log('START SCHEDULE');
         break;
+      default:
+        console.log('THIS IS OKAY');
+        break;
     }
-    if(message.message === EWSMessageType.START_PLAYLIST)
-    console.log("Received: '" + e.data + "'");
   }
 }
 
+/**
+ * This function sets the client onopen, onclose, onmessage functions
+ *
+ */
 function setClientFunctions() {
-  client.onopen = websocketOpen;
-  client.onclose = websocketMessage;
-  client.onmessage = websocketClose;
+  client = new WebsocketClient("wss://cs70esocmi.execute-api.us-east-1.amazonaws.com/dev/")
+  client.onopen = onWebsocketOpen;
+  client.onclose = onWebsocketClose;
+  client.onmessage = onWebsocketMessage;
+}
+
+/**
+ * This function sends the initial requests to start process.
+ *
+ */
+function onStartUp() {
+  startAudioOnMaster()
+  startAudioOnAdmin()
+}
+
+/**
+ * This function sends a message via Websockets to start the audio on the master Raspberry Pi
+ *
+ */
+function startAudioOnMaster() {
+  let masterAudioMessage = JSON.stringify({
+    client_type: EWSClientType.MASTER,
+    message: EWSMessageType.START_AUDIO,
+    raspberry_pi_id: 1
+  });
+
+  client.send(masterAudioMessage, function (err){
+    if(err) {
+      setTimeout(() => {
+        startAudioOnMaster()
+      }, 500);
+    }
+  })
+}
+
+/**
+ * This function sends a message via Websockets to start the audio on the React admin site
+ *
+ */
+function startAudioOnAdmin() {
+  let adminAudioMessage = JSON.stringify({
+    client_type: EWSClientType.ADMIN,
+    message: EWSMessageType.START_AUDIO,
+    raspberry_pi_id: 0
+  });
+
+  client.send(adminAudioMessage, function (err){
+    if(err) {
+      setTimeout(() => {
+        startAudioOnAdmin()
+      }, 500);
+    }
+  })
+}
+
+/**
+ * Makes request to get videos then stores in video.json
+ *
+ */
+async function storeVideosInJSONFile() {
+  let response = await request.getVideos();
+  let videos = response.data.data;
+  console.log('VIDEOS', videos)
+  fileManager.storeVideos(videos);
+}
+
+/**
+ * Makes request to get videos then stores in video.json
+ *
+ */
+async function storeScreensInJSONFile() {
+  let response = await request.getScreens();
+  let screens = response.data.data;
+  console.log('SCREENS', screens)
+  fileManager.storeScreens(screens);
 }
 
 
 
 app.listen(PORT, async () => {
   console.log("Listening on port: " + PORT);
-  let response = await request.getVideos();
-  let videos = response.data.data;
-  console.log('VIDEOS', videos)
-  fileManager.storeVideos(videos);
+  await storeVideosInJSONFile();
+  await storeScreensInJSONFile();
   setClientFunctions();
 });
+
+
 
