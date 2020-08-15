@@ -24,7 +24,7 @@ app.get("/video/:videoId", function(req, res) {
     return vid.id === videoId
   })
 
-  const path = video ? `assets/${video.uri}` : `assets/${video[0].uri}`;
+  const path = video ? `assets/${video.uri}` : `assets/${videos[0].uri}`;
   const stat = fs.statSync(path);
   const fileSize = stat.size;
   const range = req.headers.range;
@@ -99,6 +99,7 @@ function initialiseWebsocketOpen() {
  */
 function onWebsocketClose() {
   console.log('onClose')
+  // Restart the websocket connection
 }
 
 /**
@@ -184,6 +185,15 @@ function startAudioOnAdmin() {
   })
 }
 
+function startPlaylistOnDisplayPis() {
+  let screens =  fileManager.getScreens();
+  console.log('scr' ,screens)
+
+  screens.forEach(function(screen, index) {
+
+  })
+}
+
 /**
  * Makes request to get videos then stores in video.json
  *
@@ -202,7 +212,7 @@ async function storeVideosInJSONFile() {
 async function storeScreensInJSONFile() {
   let response = await request.getScreens();
   let screens = response.data.data;
-  console.log('SCREENS', screens)
+  // console.log('SCREENS', screens)
   fileManager.storeScreens(screens);
 }
 
@@ -213,6 +223,7 @@ app.listen(PORT, async () => {
   await storeVideosInJSONFile();
   await storeScreensInJSONFile();
   setClientFunctions();
+  // startPlaylistOnDisplayPis()
 });
 
 
