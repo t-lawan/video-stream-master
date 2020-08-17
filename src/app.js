@@ -2,7 +2,8 @@ const express = require("express");
 const fs = require("fs");
 const path = require("path");
 const app = express();
-const request = require("../utils/RequestManager");
+const RequestManager = require("../utils/RequestManager");
+const ScheduleManager = require("../utils/ScheduleManager");
 const fileManager = require("../utils/FileManager");
 const PORT = 8080;
 const WebsocketClient = require('ws');
@@ -66,6 +67,7 @@ app.get("/video/:videoId", function(req, res) {
 
 // Define WebSocketClient
 let client;
+let scheduleManager = new ScheduleManager();
 
 function onWebsocketOpen(r) {
   console.log('onOpen');
@@ -113,10 +115,11 @@ function onWebsocketMessage(r) {
     let message = JSON.parse(r.data);
     switch(message.message) {
       case EWSMessageType.START_AUDIO:
-        console.log('PLAY AUDIO');
+        console.log('START_AUDIO');
         break;
       case EWSMessageType.START_SCHEDULE:
-        console.log('START SCHEDULE');
+        scheduleManager.start();
+        console.log('START_SCHEDULE');
         break;
       default:
         console.log('THIS IS OKAY');
@@ -199,7 +202,7 @@ function startPlaylistOnDisplayPis() {
  *
  */
 async function storeVideosInJSONFile() {
-  let response = await request.getVideos();
+  let response = await RequestManager.getVideos();
   let videos = response.data.data;
   console.log('VIDEOS', videos)
   fileManager.storeVideos(videos);
@@ -210,7 +213,7 @@ async function storeVideosInJSONFile() {
  *
  */
 async function storeScreensInJSONFile() {
-  let response = await request.getScreens();
+  let response = await RequestManager.getScreens();
   let screens = response.data.data;
   // console.log('SCREENS', screens)
   fileManager.storeScreens(screens);
