@@ -110,19 +110,19 @@ function onWebsocketClose() {
  * @param {*} e
  */
 function onWebsocketMessage(r) {
-  console.log('onMessage')
+  // console.log('onMessage')
   if (typeof r.data === 'string') {
     let message = JSON.parse(r.data);
     switch(message.message) {
       case EWSMessageType.START_AUDIO:
-        console.log('START_AUDIO');
+        // console.log('START_AUDIO');
         break;
       case EWSMessageType.START_SCHEDULE:
-        scheduleManager.start();
         console.log('START_SCHEDULE');
+        scheduleManager.start();
         break;
       default:
-        console.log('THIS IS OKAY');
+        // console.log('THIS IS OKAY');
         break;
     }
   }
@@ -190,7 +190,7 @@ function startAudioOnAdmin() {
 
 function startPlaylistOnDisplayPis() {
   let screens =  fileManager.getScreens();
-  console.log('scr' ,screens)
+  // console.log('scr' ,screens)
 
   screens.forEach(function(screen, index) {
 
@@ -204,7 +204,7 @@ function startPlaylistOnDisplayPis() {
 async function storeVideosInJSONFile() {
   let response = await RequestManager.getVideos();
   let videos = response.data.data;
-  console.log('VIDEOS', videos)
+  // console.log('VIDEOS', videos)
   fileManager.storeVideos(videos);
 }
 
@@ -226,6 +226,8 @@ app.listen(PORT, async () => {
   await storeVideosInJSONFile();
   await storeScreensInJSONFile();
   setClientFunctions();
+  await scheduleManager.loadCSV();
+
   // startPlaylistOnDisplayPis()
 });
 

@@ -1,6 +1,9 @@
+const csvFilePath = 'assets/test.csv'
+const csv=require('csvtojson/v2')
+
 
 class ScheduleManager {
-    screen_one = [
+    screen_actions = [
         {
             action: 'BABA',
             pi_id: 1,
@@ -17,13 +20,13 @@ class ScheduleManager {
             action: 'START_STREAM',
             pi_id: 1,
             payload: null,
-            duration: 5000
+            duration: 2000
         },
         {
             action: 'STOP_STREAM',
             pi_id: 1,
             payload: null,
-            duration: 5000
+            duration: 7000
         },
         {
             action: 'END',
@@ -35,10 +38,24 @@ class ScheduleManager {
 
     screen_one_index = 0;
 
+    async loadCSV(){
+        const jsonArray= await csv().fromFile(csvFilePath);
+    }
+
+    mapCSV(screenActions) {
+        this.screen_actions = screenActions.map((screenAction, index), {
+            return {
+                ...screenAction,
+                TIMECODE: parseInt(screenAction.TIMECODE) * 1000
+            }
+        })
+        console.log(1, this.screen_actions);
+    }
+
     start(){
         let time = 0;
         if(this.screen_one_index > 0) {
-            time = this.screen_one[this.screen_one_index - 1].duration
+            time = this.screen_actions[this.screen_one_index - 1].duration
         }
 
         setTimeout(() => {
@@ -48,7 +65,7 @@ class ScheduleManager {
 
     sendCall(){
         this.screen_one_index = this.screen_one_index + 1;
-        console.log(this.screen_one[this.screen_one_index - 1].action)
+        console.log(this.screen_actions[this.screen_one_index - 1].action)
 
         if(!this.isLastItem()) {
             this.start()
@@ -56,7 +73,7 @@ class ScheduleManager {
     }
 
     isLastItem() {
-        return this.screen_one_index + 1 === this.screen_one.length;
+        return this.screen_one_index + 1 === this.screen_actions.length;
     }
 }
 
