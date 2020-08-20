@@ -7,53 +7,31 @@ class ScheduleManager {
     constructor() {
         this.screen_actions = [
             {
-                action: 'BABA',
-                pi_id: 1,
-                payload: null,
-                duration: 1000
-            },
-            {
-                action: 'START_VIDEO',
-                pi_id: 1,
-                payload: null,
-                duration: 5000
-            },
-            {
-                action: 'START_STREAM',
-                pi_id: 1,
-                payload: null,
-                duration: 2000
-            },
-            {
-                action: 'STOP_STREAM',
-                pi_id: 1,
-                payload: null,
-                duration: 7000
-            },
-            {
-                action: 'END',
+                action: 'END_SCHEDULE',
                 pi_id: 1,
                 payload: null,
                 duration: 5000
             }
         ];
+
+        this.screen_one_index = 0;
     }
 
 
-    screen_one_index = 0;
+    
 
     async loadCSV(){
-        const jsonArray= await csv().fromFile(csvFilePath);
+        const jsonArray = await csv().fromFile(csvFilePath);
+        this.mapCSV(jsonArray);
     }
 
     mapCSV(screenActions) {
-        this.screen_actions = screenActions.map((screenAction, index), {
+        this.screen_actions = screenActions.map(function (screenAction, index) {
             return {
                 ...screenAction,
                 TIMECODE: parseInt(screenAction.TIMECODE) * 1000
             }
         })
-        console.log(1, this.screen_actions);
     }
 
     start(){
