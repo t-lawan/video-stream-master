@@ -3,38 +3,42 @@ const csv=require('csvtojson/v2')
 
 
 class ScheduleManager {
-    screen_actions = [
-        {
-            action: 'BABA',
-            pi_id: 1,
-            payload: null,
-            duration: 1000
-        },
-        {
-            action: 'START_VIDEO',
-            pi_id: 1,
-            payload: null,
-            duration: 5000
-        },
-        {
-            action: 'START_STREAM',
-            pi_id: 1,
-            payload: null,
-            duration: 2000
-        },
-        {
-            action: 'STOP_STREAM',
-            pi_id: 1,
-            payload: null,
-            duration: 7000
-        },
-        {
-            action: 'END',
-            pi_id: 1,
-            payload: null,
-            duration: 5000
-        }
-    ];
+
+    constructor() {
+        this.screen_actions = [
+            {
+                action: 'BABA',
+                pi_id: 1,
+                payload: null,
+                duration: 1000
+            },
+            {
+                action: 'START_VIDEO',
+                pi_id: 1,
+                payload: null,
+                duration: 5000
+            },
+            {
+                action: 'START_STREAM',
+                pi_id: 1,
+                payload: null,
+                duration: 2000
+            },
+            {
+                action: 'STOP_STREAM',
+                pi_id: 1,
+                payload: null,
+                duration: 7000
+            },
+            {
+                action: 'END',
+                pi_id: 1,
+                payload: null,
+                duration: 5000
+            }
+        ];
+    }
+
 
     screen_one_index = 0;
 
