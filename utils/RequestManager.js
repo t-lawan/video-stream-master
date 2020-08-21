@@ -9,6 +9,11 @@ class RequestManager {
         return await this.get(`https://v2lu4dcv0l.execute-api.us-east-1.amazonaws.com/dev/screens`);
     }
 
+    static async getAudio() {
+        return await this.get(`https://v2lu4dcv0l.execute-api.us-east-1.amazonaws.com/dev/audio`);
+    }
+
+
 
     static async get (url) {
         let config = {

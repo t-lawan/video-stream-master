@@ -2,6 +2,7 @@ const fs = require('fs');
 
 const SCREEN = 'screen';
 const VIDEO = 'video'
+const AUDIO = 'audio'
 class FileManager {
     static storeVideos(videos) {
         FileManager.store(VIDEO, videos)
@@ -11,12 +12,20 @@ class FileManager {
         FileManager.store(SCREEN, screens)
     }
 
+    static storeAudio(audioList) {
+        FileManager.store(AUDIO, audioList)
+    }
+
     static getVideos() {
         return FileManager.get(VIDEO);
     }
 
     static getScreens() {
         return FileManager.get(SCREEN);
+    }
+
+    static getAudio() {
+        return FileManager.get(AUDIO);
     }
 
     static store(title, objects) {

@@ -1,4 +1,5 @@
 var player = require('play-sound')(opts = {})
+const fileManager = require("../utils/FileManager");
 
 class AudioManager {
 
@@ -15,7 +16,24 @@ class AudioManager {
     startPlaylist() {
 
     }
+
+    playSingleAudio(id) {
+        let audioList = fileManager.getAudio()
+        console.log(audioList)
+        let audio = audioList.find((au) => {
+            return au.id === id;
+        })
+        if (audio) {
+            this.audio_player = player.play(`./assets/${audio.uri}`), function (err) {
+                if (err) throw err;
+                console.log("Audio finished");
+
+            }
+        }
+
+    }
     playAudio() {
+
         this.audio_player = player.play(this.audio_playlist[this.audio_playlist_index], function (err) {
             if (err) throw err;
             console.log("Audio finished");

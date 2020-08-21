@@ -87,12 +87,15 @@ function initialiseWebsocketOpen() {
     raspberry_pi_id: 1
   });
   client.send(message, function (err){
+   // onStartUp()
+
     if(err) {
       setTimeout(() => {
         initialiseWebsocketOpen();
       }, 500);
     } else {
-      onStartUp()
+     // onStartUp()
+
     }
   });
 }
@@ -118,8 +121,12 @@ function onWebsocketMessage(r) {
     switch(message.message) {
       case EWSMessageType.START_AUDIO:
         console.log('START_AUDIO');
-        audioManager.playAudio();
+        let id = message.payload;
+        audioManager.playSingleAudio(id);
         break;
+      case EWSMessageType.START_VIDEO_PLAYLIST:
+        audioManager.playAudio()
+        console.log('START_AUDIO');
       case EWSMessageType.START_SCHEDULE:
         console.log('START_SCHEDULE');
         scheduleManager.start();
@@ -159,7 +166,8 @@ function startAudioOnMaster() {
   let masterAudioMessage = JSON.stringify({
     client_type: EWSClientType.MASTER,
     message: EWSMessageType.START_AUDIO,
-    raspberry_pi_id: 1
+    raspberry_pi_id: 1,
+    payload: 'ada4f2fd-1a6e-4688-bbf9-e20aadda5435'
   });
 
   client.send(masterAudioMessage, function (err){
@@ -222,15 +230,26 @@ async function storeScreensInJSONFile() {
   fileManager.storeScreens(screens);
 }
 
+/**
+ * Makes request to get videos then stores in video.json
+ *
+ */
+async function storeAudioInJSONFile() {
+  let response = await RequestManager.getAudio();
+  let audio = response.data.data;
+  fileManager.storeAudio(audio);
+}
+
 
 
 app.listen(PORT, async () => {
   console.log("Listening on port: " + PORT);
   await storeVideosInJSONFile();
   await storeScreensInJSONFile();
+  await storeAudioInJSONFile();
   setClientFunctions();
   await scheduleManager.loadCSV();
-  audioManager.playAudio();
+  scheduleManager.start();
   
   // startPlaylistOnDisplayPis()
 });
