@@ -5,8 +5,10 @@ const app = express();
 const RequestManager = require("../utils/RequestManager");
 const ScheduleManager = require("../utils/ScheduleManager");
 const fileManager = require("../utils/FileManager");
+
 const PORT = 8080;
 const WebsocketClient = require('ws');
+const AudioManager = require("../utils/AudioManager");
 const EWSClientType = require('../utils/Enums').EWSClientType
 const EWSMessageType = require('../utils/Enums').EWSMessageType
 
@@ -68,7 +70,7 @@ app.get("/video/:videoId", function(req, res) {
 // Define WebSocketClient
 let client;
 let scheduleManager = new ScheduleManager();
-
+let audioManager = new AudioManager();
 function onWebsocketOpen(r) {
   console.log('onOpen');
   initialiseWebsocketOpen()
@@ -115,7 +117,8 @@ function onWebsocketMessage(r) {
     let message = JSON.parse(r.data);
     switch(message.message) {
       case EWSMessageType.START_AUDIO:
-        // console.log('START_AUDIO');
+        console.log('START_AUDIO');
+        audioManager.playAudio();
         break;
       case EWSMessageType.START_SCHEDULE:
         console.log('START_SCHEDULE');
@@ -227,7 +230,8 @@ app.listen(PORT, async () => {
   await storeScreensInJSONFile();
   setClientFunctions();
   await scheduleManager.loadCSV();
-
+  audioManager.playAudio();
+  
   // startPlaylistOnDisplayPis()
 });
 
