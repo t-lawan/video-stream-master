@@ -240,6 +240,16 @@ async function storeAudioInJSONFile() {
   fileManager.storeAudio(audio);
 }
 
+function performAction(action) {
+  let message = JSON.stringify({
+    client_type: EWSClientType.DISPLAY,
+    message: action.ACTION,
+    raspberry_pi_id: action.RPI_ID,
+    payload: action.PAYLOAD
+  })
+  client.send(message)
+}
+
 
 
 app.listen(PORT, async () => {
@@ -249,7 +259,7 @@ app.listen(PORT, async () => {
   await storeAudioInJSONFile();
   setClientFunctions();
   await scheduleManager.loadCSV();
-  scheduleManager.start();
+  scheduleManager.start(performAction);
   
   // startPlaylistOnDisplayPis()
 });

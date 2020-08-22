@@ -11,6 +11,7 @@ class ScheduleManager {
         this.screen_one_index = 0;
         this.current_time = 0;
         this.clock;
+        this.performAction;
     }
 
 
@@ -37,10 +38,10 @@ class ScheduleManager {
             PAYLOAD: null,
             TIMECODE: Math.max(...timeCodes) + 1000
         })
-
     }
 
-    start() {
+    start(callback) {
+        this.performAction = callback
         this.clock = setInterval(this.sendCalls.bind(this), 1000)
     }
 
@@ -50,11 +51,10 @@ class ScheduleManager {
         })
         if(currentActions.length > 0) {
             currentActions.forEach((action) => {
-                console.log('ACTION', action)
+                this.performAction(action)
                 if(action.ACTION === EWSMessageType.STOP_SCHEDULE) {
                     clearInterval(this.clock)
                 }
-
             })
         }
         this.current_time = this.current_time + 1000;
