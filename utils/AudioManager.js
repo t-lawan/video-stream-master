@@ -2,16 +2,18 @@ var player = require('play-sound')(opts = {})
 const fileManager = require("../utils/FileManager");
 
 class AudioManager {
+    constructor(){
+        this.audio_player;
 
-    audio_player;
+        this.audio_playlist = [
+            './assets/05.wav',
+            './assets/04.wav',
+            './assets/03.wav'
+        ]
+    
+        this.audio_playlist_index = 0;
+    }
 
-    audio_playlist = [
-        './assets/05.wav',
-        './assets/04.wav',
-        './assets/03.wav'
-    ]
-
-    audio_playlist_index = 0;
 
     startPlaylist() {
 
