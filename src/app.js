@@ -129,7 +129,7 @@ function onWebsocketMessage(r) {
         console.log('START_AUDIO');
       case EWSMessageType.START_SCHEDULE:
         console.log('START_SCHEDULE');
-        scheduleManager.start();
+        scheduleManager.start(performAction);
         break;
       default:
         // console.log('THIS IS OKAY');
@@ -259,7 +259,7 @@ app.listen(PORT, async () => {
   await storeAudioInJSONFile();
   setClientFunctions();
   await scheduleManager.loadCSV();
-  scheduleManager.start(performAction);
+
   
   // startPlaylistOnDisplayPis()
 });
