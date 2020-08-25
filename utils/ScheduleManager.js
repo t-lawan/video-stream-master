@@ -49,6 +49,7 @@ class ScheduleManager {
         let currentActions = this.screen_actions.filter((action) => {
             return action.TIMECODE == this.current_time 
         })
+        console.log('Time', this.current_time)
         if(currentActions.length > 0) {
             currentActions.forEach((action) => {
                 console.log('ACTION', action)
