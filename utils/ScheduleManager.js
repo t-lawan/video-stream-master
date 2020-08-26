@@ -33,7 +33,7 @@ class ScheduleManager {
         })
 
         this.screen_actions.push({
-            ACTION: 'END_SCHEDULE',
+            ACTION: EWSMessageType.STOP_SCHEDULE,
             RPI_ID: 1,
             PAYLOAD: null,
             TIMECODE: Math.max(...timeCodes) + 1000
@@ -49,10 +49,8 @@ class ScheduleManager {
         let currentActions = this.screen_actions.filter((action) => {
             return action.TIMECODE == this.current_time 
         })
-        console.log('Time', this.current_time)
         if(currentActions.length > 0) {
             currentActions.forEach((action) => {
-                console.log('ACTION', action)
                 this.performAction(action)
                 if(action.ACTION === EWSMessageType.STOP_SCHEDULE) {
                     clearInterval(this.clock)
