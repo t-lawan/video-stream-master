@@ -52,8 +52,8 @@ class ScheduleManager {
         if(currentActions.length > 0) {
             currentActions.forEach((action) => {
                 this.performAction(action)
+                console.log('ACTION', action)
                 if(action.ACTION === EWSMessageType.STOP_SCHEDULE) {
-                    console.log('ACTION', action)
                     clearInterval(this.clock)
                 }
             })
