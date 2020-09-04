@@ -259,6 +259,9 @@ app.listen(PORT, async () => {
   await storeAudioInJSONFile();
   setClientFunctions();
   await scheduleManager.loadCSV();
+  setTimeout(function (){
+    scheduleManager.start(performAction);
+  }, 5000)
 
   
   // startPlaylistOnDisplayPis()
