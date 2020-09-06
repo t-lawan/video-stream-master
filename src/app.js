@@ -124,13 +124,16 @@ function onWebsocketMessage(r) {
         let id = message.payload;
         audioManager.playSingleAudio(id);
         break;
-      case EWSMessageType.START_VIDEO_PLAYLIST:
+      case EWSMessageType.START_AUDIO_PLAYLIST:
         audioManager.playAudio()
         console.log('START_AUDIO');
       case EWSMessageType.START_SCHEDULE:
         console.log('START_SCHEDULE');
         scheduleManager.start(performAction);
         break;
+      case EWSMessageType.STOP_SCHEDULE:
+        console.log('STOP_SCHEDULE');
+        startVideoOnDisplayPis();
       default:
         // console.log('THIS IS OKAY');
         break;
@@ -199,7 +202,7 @@ function startAudioOnAdmin() {
   })
 }
 
-function startPlaylistOnDisplayPis() {
+function startVideoOnDisplayPis() {
   let startAllDisplays = JSON.stringify({
     client_type: EWSClientType.ADMIN,
     message: EWSMessageType.START_ALL_DISPLAYS,
@@ -268,7 +271,7 @@ app.listen(PORT, async () => {
   await scheduleManager.loadCSV();
 
   // setTimeout(function() {
-  //   startPlaylistOnDisplayPis()
+  //   startVideoOnDisplayPis()
   // }, 5000)
 });
 
