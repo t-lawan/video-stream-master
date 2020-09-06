@@ -130,7 +130,8 @@ function onWebsocketMessage(r) {
         console.log('START_AUDIO');
       case EWSMessageType.START_SCHEDULE:
         console.log('START_SCHEDULE');
-        scheduleManager.start(performAction);
+        startVideoOnDisplayPis()
+        // scheduleManager.start(performAction);
         break;
       case EWSMessageType.STOP_SCHEDULE:
         console.log('STOP_SCHEDULE');
