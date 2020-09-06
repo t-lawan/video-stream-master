@@ -209,13 +209,7 @@ function startVideoOnDisplayPis() {
     raspberry_pi_id: 0
   });
 
-  client.send(startAllDisplays, function (err){
-    if(err) {
-      setTimeout(() => {
-        startAudioOnMaster()
-      }, 500);
-    }
-  })
+  client.send(startAllDisplays)
 }
 
 /**
@@ -270,9 +264,9 @@ app.listen(PORT, async () => {
   setClientFunctions();
   await scheduleManager.loadCSV();
 
-  setTimeout(function() {
+  // setTimeout(function() {
     startVideoOnDisplayPis()
-  }, 2000)
+  // }, 2000)
 });
 
 
