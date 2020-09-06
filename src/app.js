@@ -200,11 +200,18 @@ function startAudioOnAdmin() {
 }
 
 function startPlaylistOnDisplayPis() {
-  let screens =  fileManager.getScreens();
-  // console.log('scr' ,screens)
+  let startAllDisplays = JSON.stringify({
+    client_type: EWSClientType.ADMIN,
+    message: EWSMessageType.START_ALL_DISPLAYS,
+    raspberry_pi_id: 0
+  });
 
-  screens.forEach(function(screen, index) {
-
+  client.send(startAllDisplays, function (err){
+    if(err) {
+      setTimeout(() => {
+        startAudioOnMaster()
+      }, 500);
+    }
   })
 }
 
@@ -260,7 +267,9 @@ app.listen(PORT, async () => {
   setClientFunctions();
   await scheduleManager.loadCSV();
 
-  // startPlaylistOnDisplayPis()
+  // setTimeout(function() {
+  //   startPlaylistOnDisplayPis()
+  // }, 5000)
 });
 
 
