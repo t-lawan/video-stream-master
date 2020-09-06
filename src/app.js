@@ -270,9 +270,9 @@ app.listen(PORT, async () => {
   setClientFunctions();
   await scheduleManager.loadCSV();
 
-  // setTimeout(function() {
-  //   startVideoOnDisplayPis()
-  // }, 5000)
+  setTimeout(function() {
+    startVideoOnDisplayPis()
+  }, 2000)
 });
 
 
