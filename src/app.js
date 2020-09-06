@@ -74,6 +74,7 @@ let audioManager = new AudioManager();
 function onWebsocketOpen(r) {
   console.log('onOpen');
   initialiseWebsocketOpen()
+  startVideoOnDisplayPis()
 }
 
 /**
@@ -265,7 +266,6 @@ app.listen(PORT, async () => {
   await scheduleManager.loadCSV();
 
   // setTimeout(function() {
-    startVideoOnDisplayPis()
   // }, 2000)
 });
 
