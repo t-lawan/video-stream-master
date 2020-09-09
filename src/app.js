@@ -86,6 +86,7 @@ function initialiseWebsocketOpen() {
     message: EWSMessageType.INITIALISE,
     raspberry_pi_id: 1
   });
+
   client.send(message, function (err){
    // onStartUp()
 
@@ -108,6 +109,9 @@ function initialiseWebsocketOpen() {
 function onWebsocketClose() {
   console.log('onClose')
   // Restart the websocket connection
+  setTimeout(function(){
+    setClientFunctions();
+  }, 1000)
 }
 
 /**
