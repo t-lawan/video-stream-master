@@ -55,6 +55,7 @@ class ScheduleManager {
                 console.log('ACTION', action)
                 if(action.ACTION === EWSMessageType.STOP_SCHEDULE) {
                     clearInterval(this.clock)
+                    this.clock = null;
                 }
             })
         }
