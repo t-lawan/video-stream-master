@@ -49,17 +49,24 @@ class ScheduleManager {
         let currentActions = this.screen_actions.filter((action) => {
             return action.TIMECODE == this.current_time 
         })
+
         if(currentActions.length > 0) {
             currentActions.forEach((action) => {
                 this.performAction(action)
                 console.log('ACTION', action)
                 if(action.ACTION === EWSMessageType.STOP_SCHEDULE) {
-                    clearInterval(this.clock)
-                    this.clock = null;
+                    this.stop()
                 }
             })
         }
         this.current_time = this.current_time + 1000;
+    }
+
+    stop() {
+        clearInterval(this.clock)
+        this.clock = null;
+
+        console.log('END')
     }
 }
 
