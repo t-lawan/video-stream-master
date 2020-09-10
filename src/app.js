@@ -19,6 +19,15 @@ app.get("", (req, res) => {
   res.send("Hi");
 });
 
+
+
+
+
+
+// Define WebSocketClient
+let client;
+let scheduleManager = new ScheduleManager();
+let audioManager = new AudioManager();
 app.get("/video/:videoId", function(req, res) {
   let videoId = req.params.videoId
   let videos = fileManager.getVideos();
@@ -65,12 +74,11 @@ app.get("/video/:videoId", function(req, res) {
     fs.createReadStream(path).pipe(res);
   }
 });
+app.get('/schedule', async function(req, res) {
+  let actions = await scheduleManager.getCSV()
+  res.send(JSON.stringify(actions));
+})
 
-
-// Define WebSocketClient
-let client;
-let scheduleManager = new ScheduleManager();
-let audioManager = new AudioManager();
 function onWebsocketOpen(r) {
   console.log('onOpen');
   initialiseWebsocketOpen()

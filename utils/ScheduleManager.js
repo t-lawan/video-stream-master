@@ -20,6 +20,30 @@ class ScheduleManager {
         this.mapCSV(jsonArray);
     }
 
+    async getCSV() {
+        const jsonArray = await csv().fromFile(csvFilePath);
+        let screenActions = jsonArray.map(function (screenAction, index) {
+            return {
+                ...screenAction,
+                TIMECODE: parseInt(screenAction.TIMECODE) * 1000
+            }
+        })
+
+        let timeCodes = this.screen_actions.map((action) => {
+            return parseInt(action.TIMECODE)
+        })
+
+        screenActions.push({
+            ACTION: EWSMessageType.STOP_SCHEDULE,
+            RPI_ID: 1,
+            PAYLOAD: null,
+            TIMECODE: Math.max(...timeCodes) + 1000
+        })
+
+        return screenActions
+    }
+
+
     mapCSV(screenActions) {
         this.screen_actions = screenActions.map(function (screenAction, index) {
             return {
