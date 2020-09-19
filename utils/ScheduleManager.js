@@ -89,8 +89,7 @@ class ScheduleManager {
     stop() {
         clearInterval(this.clock)
         this.clock = null;
-
-        console.log('END')
+        this.current_time = 0;
     }
 }
 
