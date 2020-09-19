@@ -146,7 +146,7 @@ async function onWebsocketMessage(r) {
         break;
       case EWSMessageType.STOP_SCHEDULE:
         console.log('STOP_SCHEDULE');
-        startVideoOnDisplayPis();
+        // startVideoOnDisplayPis();
         await scheduleManager.loadCSV();
         break;
       default:
