@@ -127,7 +127,7 @@ function onWebsocketClose() {
  *
  * @param {*} e
  */
-function onWebsocketMessage(r) {
+async function onWebsocketMessage(r) {
   // console.log('onMessage')
   if (typeof r.data === 'string') {
     let message = JSON.parse(r.data);
