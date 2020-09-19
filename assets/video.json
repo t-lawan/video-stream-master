@@ -39,7 +39,7 @@
     "uri": "rtsp://admin:false.memory@192.168.0.254/h264/ch1/main/av_stream",
     "video_type": "STREAM",
     "id": "807ad9e3-2cc8-440f-bd63-3966725a5f9b",
-    "title": "Stream One"
+    "title": "Installation"
   },
   {
     "uri": "vid_04.mp4",
