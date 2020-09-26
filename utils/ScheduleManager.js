@@ -48,7 +48,7 @@ class ScheduleManager {
         this.screen_actions = screenActions.map(function (screenAction, index) {
             return {
                 ...screenAction,
-                TIMECODE: parseInt(screenAction.TIMECODE) * 1000
+                TIMECODE: (parseInt(screenAction.TIMECODE) * 1000) + 1000
             }
         })
 
