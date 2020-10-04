@@ -21,7 +21,6 @@ class AudioManager {
 
     playSingleAudio(id) {
         let audioList = fileManager.getAudio()
-        console.log(audioList)
         let audio = audioList.find((au) => {
             return au.id === id;
         })

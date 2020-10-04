@@ -135,11 +135,11 @@ async function onWebsocketMessage(r) {
       case EWSMessageType.START_AUDIO:
         console.log('START_AUDIO');
         let id = message.payload;
-        audioManager.playSingleAudio(id);
+        // audioManager.playSingleAudio(id);
         break;
       case EWSMessageType.START_AUDIO_PLAYLIST:
         audioManager.playAudio()
-        console.log('START_AUDIO');
+        // console.log('START_AUDIO');
       case EWSMessageType.START_SCHEDULE:
         console.log('START_SCHEDULE');
         scheduleManager.start(performAction);
@@ -148,6 +148,14 @@ async function onWebsocketMessage(r) {
         console.log('STOP_SCHEDULE');
         // startVideoOnDisplayPis();
         await scheduleManager.loadCSV();
+        let ac = {
+          ACTION: EWSMessageType.START_SCHEDULE,
+          raspberry_pi_id: 0,
+          payload: ''
+        }
+        setTimeout(() => {
+          performAction(ac)
+        }, 5000)
         break;
       default:
         // console.log('THIS IS OKAY');
@@ -265,8 +273,8 @@ function performAction(action) {
     message: action.ACTION,
     raspberry_pi_id: action.RPI_ID,
     payload: action.PAYLOAD
-  })
-  client.send(message)
+  });
+  client.send(message);
 }
 
 

@@ -45,10 +45,27 @@ class ScheduleManager {
 
 
     mapCSV(screenActions) {
+        // this.screen_actions = screenActions.map(function (screenAction, index) {
+        //     return {
+        //         ...screenAction,
+        //         TIMECODE: (parseInt(screenAction.TIMECODE) * 1000) + 1000
+        //     }
+        // })
+
         this.screen_actions = screenActions.map(function (screenAction, index) {
+
+            let action = screenAction;
+
+            if(action.ACTION === "STOP_VIDEO") {
+                action = {
+                    ...action,
+                    PAYLOAD: '782b91f0-28a2-41a0-8289-8ca8de9ba077',
+                    ACTION: EWSMessageType.START_VIDEO
+                }
+            }
             return {
-                ...screenAction,
-                TIMECODE: (parseInt(screenAction.TIMECODE) * 1000) + 1000
+                ...action,
+                TIMECODE: (parseInt(screenAction.TIMECODE)) + 1000
             }
         })
 
@@ -66,7 +83,7 @@ class ScheduleManager {
 
     start(callback) {
         this.performAction = callback
-        this.clock = setInterval(this.sendCalls.bind(this), 1000)
+        this.clock = setInterval(this.sendCalls.bind(this), 40)
     }
 
     sendCalls() {
@@ -76,18 +93,19 @@ class ScheduleManager {
 
         if(currentActions.length > 0) {
             currentActions.forEach((action) => {
-                this.performAction(action)
-                console.log('ACTION', action)
+                console.log('ACTION', action.RPI_ID)
+                console.log('TIME', this.current_time)
+                this.performAction(action);
                 if(action.ACTION === EWSMessageType.STOP_SCHEDULE) {
-                    this.stop()
+                    this.stop();
                 }
             })
         }
-        this.current_time = this.current_time + 1000;
+        this.current_time = this.current_time + 40;
     }
 
     stop() {
-        clearInterval(this.clock)
+        clearInterval(this.clock);
         this.clock = null;
         this.current_time = 0;
     }
