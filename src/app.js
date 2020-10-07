@@ -301,7 +301,7 @@ function sendMessageToDisplay(message) {
   }, function() {
     socketClient.write(message);
     socketClient.end();
-    console.log('SEND MESSAGE ENDED')
+    console.log('SEND MESSAGE ENDED', socketClient)
 
   })
 
