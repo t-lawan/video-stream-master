@@ -292,16 +292,14 @@ const IPMAP = {
 }
 
 function sendMessageToDisplay(message) {
-  let ip = '40';
-  console.log('MESSAGE', message);
-  console.log('IP', IPMAP[message.raspberry_pi_id])
-  // let socketClient = net.createConnection({
-  //   host: `http://10.0.0.${IPMAP[ip]}`,
-  //   port: '1234'
-  // }, function() {
-  //   socketClient.write(message);
-  //   socketClient.end();
-  // })
+  let action = JSON.parse(message)
+  let socketClient = net.createConnection({
+    host: `http://10.0.0.${IPMAP[action.raspberry_pi_id]}`,
+    port: '1234'
+  }, function() {
+    socketClient.write(message);
+    socketClient.end();
+  })
 }
 
 
