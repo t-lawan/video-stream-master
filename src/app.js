@@ -318,6 +318,10 @@ function sendMessageToDisplay(message) {
     console.log('SEND MESSAGE ENDED')
   })
 
+  socketClient.on('error', function (err) {
+    console.log('ERROR')
+  })
+
   
 }
 
