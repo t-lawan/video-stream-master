@@ -305,7 +305,11 @@ function performAction(action) {
   });
 
   console.log('MESSAGE', message)
-  sendMessageToDisplay(message)
+  if(action.ACTION == EWSMessageType.STOP_SCHEDULE) {
+    stopScheduleOnDisplayPis()
+  } else {
+    sendMessageToDisplay(message)
+  }
 
   // client.send(message);
 }

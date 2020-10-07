@@ -75,7 +75,7 @@ class ScheduleManager {
 
         this.screen_actions.push({
             ACTION: EWSMessageType.STOP_SCHEDULE,
-            RPI_ID: 1,
+            RPI_ID: 0,
             PAYLOAD: null,
             TIMECODE: Math.max(...timeCodes) + 1000
         })
