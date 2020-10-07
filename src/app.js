@@ -293,13 +293,14 @@ const IPMAP = {
 
 function sendMessageToDisplay(message) {
   let ip = '40';
-  let socketClient = net.createConnection({
-    host: `http://10.0.0.${IPMAP[ip]}`,
-    port: '1234'
-  }, function() {
-    socketClient.write(message);
-    socketClient.end();
-  })
+  console.log('MESSAGE', message);
+  // let socketClient = net.createConnection({
+  //   host: `http://10.0.0.${IPMAP[ip]}`,
+  //   port: '1234'
+  // }, function() {
+  //   socketClient.write(message);
+  //   socketClient.end();
+  // })
 }
 
 
