@@ -1,4 +1,6 @@
-const csvFilePath = 'assets/test.csv'
+const testCSV = 'assets/test.csv'
+const realCSV = 'assets/real.csv'
+
 const csv = require('csvtojson/v2');
 const { EWSMessageType } = require('./Enums');
 
@@ -16,12 +18,12 @@ class ScheduleManager {
 
 
     async loadCSV() {
-        const jsonArray = await csv().fromFile(csvFilePath);
+        const jsonArray = await csv().fromFile(testCSV);
         this.mapCSV(jsonArray);
     }
 
     async getCSV() {
-        const jsonArray = await csv().fromFile(csvFilePath);
+        const jsonArray = await csv().fromFile(testCSV);
         let screenActions = jsonArray.map(function (screenAction, index) {
 
             if(screenAction.ACTION === "STOP_VIDEO") {
