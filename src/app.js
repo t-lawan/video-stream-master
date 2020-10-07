@@ -292,6 +292,7 @@ const IPMAP = {
 }
 
 function sendMessageToDisplay(message) {
+  console.log('SEND MESSAGE CALLED')
   let action = JSON.parse(message)
   let socketClient = net.createConnection({
     host: `10.0.0.${IPMAP[action.raspberry_pi_id]}`,
@@ -299,7 +300,12 @@ function sendMessageToDisplay(message) {
   }, function() {
     socketClient.write(message);
     socketClient.end();
+    console.log('SEND MESSAGE ENDED')
+
   })
+
+  console.log('SEND MESSAGE ENDED')
+
   
 }
 
