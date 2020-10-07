@@ -306,7 +306,6 @@ const IPMAP = {
 }
 
 function sendMessageToDisplay(message) {
-  console.log('SEND MESSAGE CALLED')
   let action = JSON.parse(message)
 
   let socketClient = net.createConnection({
@@ -315,9 +314,7 @@ function sendMessageToDisplay(message) {
   }, function() {
     socketClient.write(message);
     socketClient.destroy();
-    console.log('SEND MESSAGE ENDED')
   })
-
   socketClient.on('error', function (err) {
     console.log('ERROR')
   })
