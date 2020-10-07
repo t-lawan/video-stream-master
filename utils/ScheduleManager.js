@@ -23,6 +23,14 @@ class ScheduleManager {
     async getCSV() {
         const jsonArray = await csv().fromFile(csvFilePath);
         let screenActions = jsonArray.map(function (screenAction, index) {
+
+            if(screenAction.ACTION === "STOP_VIDEO") {
+                action = {
+                    ...screenAction,
+                    PAYLOAD: '782b91f0-28a2-41a0-8289-8ca8de9ba077',
+                    ACTION: EWSMessageType.START_VIDEO
+                }
+            }
             return {
                 ...screenAction,
                 TIMECODE: parseInt(screenAction.TIMECODE) * 1000
@@ -35,7 +43,7 @@ class ScheduleManager {
 
         screenActions.push({
             ACTION: EWSMessageType.STOP_SCHEDULE,
-            RPI_ID: 1,
+            RPI_ID: 0,
             PAYLOAD: null,
             TIMECODE: Math.max(...timeCodes) + 1000
         })

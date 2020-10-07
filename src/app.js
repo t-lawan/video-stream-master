@@ -75,6 +75,7 @@ app.get("/video/:videoId", function(req, res) {
     fs.createReadStream(path).pipe(res);
   }
 });
+
 app.get('/schedule', async function(req, res) {
   let actions = await scheduleManager.getCSV()
   res.send(JSON.stringify(actions));
