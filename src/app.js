@@ -140,7 +140,7 @@ async function onWebsocketMessage(r) {
         // audioManager.playSingleAudio(id);
         break;
       case EWSMessageType.START_AUDIO_PLAYLIST:
-        audioManager.playAudio()
+        // audioManager.playAudio()
         // console.log('START_AUDIO');
       case EWSMessageType.START_SCHEDULE:
         console.log('START_SCHEDULE');
@@ -306,16 +306,25 @@ function performAction(action) {
   });
 
   console.log('MESSAGE', message)
-  if(action.ACTION == EWSMessageType.STOP_SCHEDULE) {
-    stopScheduleOnDisplayPis()
-  } else {
-    sendMessageToDisplay(message)
+
+  switch(action.ACTION) {
+    case EWSMessageType.STOP_SCHEDULE:
+      stopScheduleOnDisplayPis();
+      break;
+    case EWSMessageType.START_AUDIO:
+      let id = message.PAYLOAD;
+      audioManager.playSingleAudio(id);
+      break;
+    default:
+      sendMessageToDisplay(message);
+      break;
   }
 
   // client.send(message);
 }
 
 const IPMAP = {
+  '1' : '10',
   '2' : '20',
   '3' : '30',
   '4' : '40',
