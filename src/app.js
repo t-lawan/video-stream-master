@@ -278,7 +278,7 @@ function performAction(action) {
 
   sendMessageToDisplay(message)
 
-  client.send(message);
+  // client.send(message);
 }
 
 const IPMAP = {
