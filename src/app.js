@@ -276,6 +276,7 @@ function performAction(action) {
     payload: action.PAYLOAD
   });
 
+  console.log('MESSAGE', message)
   sendMessageToDisplay(message)
 
   // client.send(message);
@@ -303,8 +304,6 @@ function sendMessageToDisplay(message) {
     console.log('SEND MESSAGE ENDED')
 
   })
-
-  console.log('SEND MESSAGE ENDED')
 
   
 }
