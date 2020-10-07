@@ -295,16 +295,15 @@ const IPMAP = {
 function sendMessageToDisplay(message) {
   console.log('SEND MESSAGE CALLED')
   let action = JSON.parse(message)
-  console.log('SEND MESSAGE ENDED', message)
 
-  // let socketClient = net.createConnection({
-  //   host: `10.0.0.${IPMAP[action.raspberry_pi_id]}`,
-  //   port: '1234'
-  // }, function() {
-  //   socketClient.write(message);
-  //   socketClient.destroy();
-  //   console.log('SEND MESSAGE ENDED')
-  // })
+  let socketClient = net.createConnection({
+    host: `10.0.0.${IPMAP[action.raspberry_pi_id]}`,
+    port: '1234'
+  }, function() {
+    socketClient.write(message);
+    socketClient.destroy();
+    console.log('SEND MESSAGE ENDED')
+  })
 
   
 }
