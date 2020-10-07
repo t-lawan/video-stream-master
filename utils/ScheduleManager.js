@@ -83,7 +83,7 @@ class ScheduleManager {
 
     start(callback) {
         this.performAction = callback
-        this.clock = setInterval(this.sendCalls.bind(this), 40)
+        this.clock = setInterval(this.sendCalls.bind(this), 20)
     }
 
     sendCalls() {
@@ -99,7 +99,7 @@ class ScheduleManager {
                 }
             })
         }
-        this.current_time = this.current_time + 40;
+        this.current_time = this.current_time + 20;
     }
 
     stop() {
