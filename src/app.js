@@ -300,8 +300,7 @@ function sendMessageToDisplay(message) {
     socketClient.write(message);
     socketClient.end();
   })
-
-  socketClient.end();
+  
 }
 
 
