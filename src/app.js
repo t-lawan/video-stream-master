@@ -148,6 +148,7 @@ async function onWebsocketMessage(r) {
         break;
       case EWSMessageType.STOP_SCHEDULE:
         console.log('STOP_SCHEDULE');
+        stopScheduleOnDisplayPis();
         // startVideoOnDisplayPis();
         // await scheduleManager.loadCSV();
         // let ac = {
@@ -233,6 +234,19 @@ function startScheduleOnDisplayPis() {
     let message = JSON.stringify({
       client_type: EWSClientType.DISPLAY,
       message: EWSMessageType.START_SCHEDULE,
+      raspberry_pi_id: screen_id,
+      payload: ''
+    });
+    sendMessageToDisplay(message)
+  })
+}
+
+function stopScheduleOnDisplayPis() {
+  let screens = Object.keys(IPMAP)
+  screens.forEach((screen_id) => {
+    let message = JSON.stringify({
+      client_type: EWSClientType.DISPLAY,
+      message: EWSMessageType.STOP_SCHEDULE,
       raspberry_pi_id: screen_id,
       payload: ''
     });
