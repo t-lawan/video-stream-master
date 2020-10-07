@@ -143,6 +143,7 @@ async function onWebsocketMessage(r) {
         // console.log('START_AUDIO');
       case EWSMessageType.START_SCHEDULE:
         console.log('START_SCHEDULE');
+        startScheduleOnDisplayPis()
         scheduleManager.start(performAction);
         break;
       case EWSMessageType.STOP_SCHEDULE:
@@ -226,6 +227,19 @@ function startAudioOnAdmin() {
   })
 }
 
+function startScheduleOnDisplayPis() {
+  let screens = Object.keys(IPMAP)
+  screens.forEach((screen_id) => {
+    let message = JSON.stringify({
+      client_type: EWSClientType.DISPLAY,
+      message: EWSMessageType.START_SCHEDULE,
+      raspberry_pi_id: screen_id,
+      payload: ''
+    });
+    sendMessageToDisplay(message)
+  })
+}
+
 function startVideoOnDisplayPis() {
   let startAllDisplays = JSON.stringify({
     client_type: EWSClientType.ADMIN,
@@ -283,7 +297,6 @@ function performAction(action) {
 }
 
 const IPMAP = {
-  '1' : '10',
   '2' : '20',
   '3' : '30',
   '4' : '40',
