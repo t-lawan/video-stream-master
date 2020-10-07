@@ -93,8 +93,6 @@ class ScheduleManager {
 
         if(currentActions.length > 0) {
             currentActions.forEach((action) => {
-                console.log('ACTION', action.RPI_ID)
-                console.log('TIME', this.current_time)
                 this.performAction(action);
                 if(action.ACTION === EWSMessageType.STOP_SCHEDULE) {
                     this.stop();
