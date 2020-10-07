@@ -25,7 +25,7 @@ class ScheduleManager {
         let screenActions = jsonArray.map(function (screenAction, index) {
 
             if(screenAction.ACTION === "STOP_VIDEO") {
-                action = {
+                screenAction = {
                     ...screenAction,
                     PAYLOAD: '782b91f0-28a2-41a0-8289-8ca8de9ba077',
                     ACTION: EWSMessageType.START_VIDEO
