@@ -5,6 +5,7 @@ const app = express();
 const RequestManager = require("../utils/RequestManager");
 const ScheduleManager = require("../utils/ScheduleManager");
 const fileManager = require("../utils/FileManager");
+const net = require('net');
 
 const PORT = 8080;
 const WebsocketClient = require('ws');
@@ -147,15 +148,15 @@ async function onWebsocketMessage(r) {
       case EWSMessageType.STOP_SCHEDULE:
         console.log('STOP_SCHEDULE');
         // startVideoOnDisplayPis();
-        await scheduleManager.loadCSV();
-        let ac = {
-          ACTION: EWSMessageType.START_SCHEDULE,
-          raspberry_pi_id: 0,
-          payload: ''
-        }
-        setTimeout(() => {
-          performAction(ac)
-        }, 5000)
+        // await scheduleManager.loadCSV();
+        // let ac = {
+        //   ACTION: EWSMessageType.START_SCHEDULE,
+        //   raspberry_pi_id: 0,
+        //   payload: ''
+        // }
+        // setTimeout(() => {
+        //   performAction(ac)
+        // }, 5000)
         break;
       default:
         // console.log('THIS IS OKAY');
@@ -274,7 +275,31 @@ function performAction(action) {
     raspberry_pi_id: action.RPI_ID,
     payload: action.PAYLOAD
   });
+
+  sendMessageToDisplay(message)
+
   client.send(message);
+}
+
+const IPMAP = {
+  '1' : '10',
+  '2' : '20',
+  '3' : '30',
+  '4' : '40',
+  '5' : '50',
+  '6' : '60',
+  '7' : '70',
+}
+
+function sendMessageToDisplay(message) {
+  let ip = '40';
+  let socketClient = net.createConnection({
+    host: `http://10.0.0.${IPMAP[ip]}`,
+    port: '1234'
+  }, function() {
+    socketClient.write(message);
+    socketClient.end();
+  })
 }
 
 
