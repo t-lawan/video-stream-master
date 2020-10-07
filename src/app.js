@@ -300,7 +300,7 @@ function sendMessageToDisplay(message) {
     port: '1234'
   }, function() {
     socketClient.write(message);
-    socketClient.end();
+    socketClient.destroy();
     console.log('SEND MESSAGE ENDED', socketClient)
 
   })
