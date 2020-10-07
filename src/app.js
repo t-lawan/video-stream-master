@@ -294,7 +294,7 @@ const IPMAP = {
 function sendMessageToDisplay(message) {
   let ip = '40';
   console.log('MESSAGE', message);
-  console.log('IP', `http://10.0.0.${IPMAP[message.raspberry_pi_id]}`)
+  console.log('IP', IPMAP[message.raspberry_pi_id])
   // let socketClient = net.createConnection({
   //   host: `http://10.0.0.${IPMAP[ip]}`,
   //   port: '1234'
