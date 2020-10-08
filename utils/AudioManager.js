@@ -27,7 +27,7 @@ class AudioManager {
 
         if (audio) {
             if(this.audio_player) {
-                this.audio_player.kill()
+                this.stopAudio();
             } 
             this.audio_player = player.play(`./assets/${audio.uri}`), function (err) {
                 if (err) throw err;

@@ -309,6 +309,7 @@ function performAction(action) {
   switch(action.ACTION) {
     case EWSMessageType.STOP_SCHEDULE:
       stopScheduleOnDisplayPis();
+      audioManager.stopAudio();
       break;
     case EWSMessageType.START_AUDIO:
       let id = action.PAYLOAD;
