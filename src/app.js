@@ -361,6 +361,7 @@ app.listen(PORT, async () => {
   await scheduleManager.loadCSV();
 
   // setTimeout(function() {
+  //   scheduleManager.start(performAction);
   // }, 2000)
 });
 

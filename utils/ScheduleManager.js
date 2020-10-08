@@ -102,6 +102,24 @@ class ScheduleManager {
         })
 
         if(currentActions.length > 0) {
+
+            let startAudioActionExists = currentActions.find((audio) => {
+                return audio.ACTION === EWSMessageType.START_AUDIO;
+            })
+
+            if(startAudioActionExists) {
+                currentActions = currentActions.sort((a, b) => {
+                    if(a.ACTION === EWSMessageType.START_AUDIO) {
+                        return +1;
+                    } else if(b.ACTION === EWSMessageType.START_AUDIO) {
+                        return -1;
+                    } else {
+                        return 0;
+                    }
+                })
+
+            }
+
             currentActions.forEach((action) => {
                 this.performAction(action);
                 if(action.ACTION === EWSMessageType.STOP_SCHEDULE) {
