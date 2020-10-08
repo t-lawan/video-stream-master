@@ -18,12 +18,12 @@ class ScheduleManager {
 
 
     async loadCSV() {
-        const jsonArray = await csv().fromFile(testCSV);
+        const jsonArray = await csv().fromFile(realCSV);
         this.mapCSV(jsonArray);
     }
 
     async getCSV() {
-        const jsonArray = await csv().fromFile(testCSV);
+        const jsonArray = await csv().fromFile(realCSV);
         let screenActions = jsonArray.map(function (screenAction, index) {
 
             if(screenAction.ACTION === "STOP_VIDEO") {
