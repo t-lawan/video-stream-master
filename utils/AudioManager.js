@@ -24,7 +24,11 @@ class AudioManager {
         let audio = audioList.find((au) => {
             return au.id === id;
         })
+
         if (audio) {
+            if(this.audio_player) {
+                this.audio_player.kill()
+            } 
             this.audio_player = player.play(`./assets/${audio.uri}`), function (err) {
                 if (err) throw err;
                 console.log("Audio finished");

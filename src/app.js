@@ -272,7 +272,6 @@ function startVideoOnDisplayPis() {
 async function storeVideosInJSONFile() {
   let response = await RequestManager.getVideos();
   let videos = response.data.data;
-  // console.log('VIDEOS', videos)
   fileManager.storeVideos(videos);
 }
 
@@ -312,7 +311,7 @@ function performAction(action) {
       stopScheduleOnDisplayPis();
       break;
     case EWSMessageType.START_AUDIO:
-      let id = message.PAYLOAD;
+      let id = action.PAYLOAD;
       audioManager.playSingleAudio(id);
       break;
     default:
