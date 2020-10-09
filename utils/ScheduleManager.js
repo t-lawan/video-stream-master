@@ -110,9 +110,9 @@ class ScheduleManager {
             if(startAudioActionExists) {
                 currentActions = currentActions.sort((a, b) => {
                     if(a.ACTION === EWSMessageType.START_AUDIO) {
-                        return -1;
-                    } else if(b.ACTION === EWSMessageType.START_AUDIO) {
                         return +1;
+                    } else if(b.ACTION === EWSMessageType.START_AUDIO) {
+                        return -1;
                     } else {
                         return 0;
                     }
