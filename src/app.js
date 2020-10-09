@@ -20,11 +20,6 @@ app.get("", (req, res) => {
   res.send("Hi");
 });
 
-
-
-
-
-
 // Define WebSocketClient
 let client;
 let scheduleManager = new ScheduleManager();
@@ -79,6 +74,12 @@ app.get("/video/:videoId", function(req, res) {
 app.get('/schedule', async function(req, res) {
   let actions = await scheduleManager.getCSV()
   res.send(JSON.stringify(actions));
+})
+
+
+app.get('/screens/', async function(req, res) {
+  let screens = fileManager.getScreens();
+  res.send(JSON.stringify(screens))
 })
 
 function onWebsocketOpen(r) {
@@ -304,7 +305,7 @@ function performAction(action) {
     payload: action.PAYLOAD
   });
 
-  console.log('PI ID: ' + action.raspberry_pi_id, 'TIMESTAMP: ' + Date.now())
+  console.log('PI ID: ' + action.raspberry_pi_id, 'TIMESTAMP: ' + new Date().toTimeString())
 
   switch(action.ACTION) {
     case EWSMessageType.STOP_SCHEDULE:
