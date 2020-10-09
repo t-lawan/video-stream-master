@@ -1,6 +1,7 @@
 const fs = require('fs');
 
 const SCREEN = 'screen';
+const SCHEDULE_ = 'schedule';
 const VIDEO = 'video'
 const AUDIO = 'audio'
 class FileManager {
@@ -10,6 +11,10 @@ class FileManager {
 
     static storeScreens(screens) {
         FileManager.store(SCREEN, screens)
+    }
+
+    static storeSchedule(schedule) {
+        FileManager.store(SCHEDULE_, schedule)
     }
 
     static storeAudio(audioList) {
@@ -22,6 +27,10 @@ class FileManager {
 
     static getScreens() {
         return FileManager.get(SCREEN);
+    }
+
+    static getSchedule() {
+        return FileManager.get(SCHEDULE_);
     }
 
     static getAudio() {

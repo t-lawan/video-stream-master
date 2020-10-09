@@ -41,24 +41,29 @@ class AudioManager {
 
             // }
         }
+    }
+
+    loopSingleAudio(id) {
+        let audioList = fileManager.getAudio()
+        let audio = audioList.find((au) => {
+            return au.id === id;
+        })
+        if (audio) {
+            if(this.audio_player) {
+                this.stopAudio();
+            } 
+
+            this.audio_player = this.manager.create(`./assets/${audio.uri}`, {'-o': 'alsa'});
+            this.audio_player.play()
+            // this.audio_player = player.play(`./assets/${audio.uri}`), function (err) {
+            //     if (err) throw err;
+            //     console.log("Audio finished");
+
+            // }
+        }
 
     }
-    playAudio() {
 
-        this.audio_player = player.play(this.audio_playlist[this.audio_playlist_index], function (err) {
-            if (err) throw err;
-            console.log("Audio finished");
-            if (this.audio_playlist_index + 1 >= this.audio_playlist.length) {
-                this.audio_playlist_index = 0;
-            }
-            else {
-                this.audio_playlist_index++;
-            }
-            stopAudio();
-
-            this.playAudio();
-        });
-    }
     stopAudio() {
         this.audio_player.stop();
     }

@@ -72,7 +72,8 @@ app.get("/video/:videoId", function(req, res) {
 });
 
 app.get('/schedule', async function(req, res) {
-  let actions = await scheduleManager.getCSV()
+  let schedule = fileManager.getSchedule()
+  let actions = scheduleManager.transformSchedule(schedule)
   res.send(JSON.stringify(actions));
 })
 
@@ -297,6 +298,12 @@ async function storeAudioInJSONFile() {
   fileManager.storeAudio(audio);
 }
 
+async function storeScheduleInJSONFile() {
+  let response = await RequestManager.getSchedule();
+  let schedule = response.data.data;
+  fileManager.storeSchedule(schedule);
+}
+
 function performAction(action) {
   let message = JSON.stringify({
     client_type: EWSClientType.DISPLAY,
@@ -358,8 +365,9 @@ app.listen(PORT, async () => {
   await storeVideosInJSONFile();
   await storeScreensInJSONFile();
   await storeAudioInJSONFile();
+  await storeScheduleInJSONFile();
   setClientFunctions();
-  await scheduleManager.loadCSV();
+  // await scheduleManager.loadCSV();
 
   // setTimeout(function() {
   //   scheduleManager.start(performAction);
