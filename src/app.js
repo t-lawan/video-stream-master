@@ -305,7 +305,7 @@ function performAction(action) {
     payload: action.PAYLOAD
   });
 
-  console.log('PI ID: ' + action.raspberry_pi_id, 'TIMESTAMP: ' + new Date().toTimeString())
+  console.log('PI ID: ' + action.RPI_ID, 'TIMESTAMP: ' + new Date().toTimeString())
 
   switch(action.ACTION) {
     case EWSMessageType.STOP_SCHEDULE:
