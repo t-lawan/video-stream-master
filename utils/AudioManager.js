@@ -13,7 +13,7 @@ class AudioManager {
         ]
     
         this.audio_playlist_index = 0;
-        this.manager = OmxManager()
+        this.manager = new OmxManager()
 
     }
 
