@@ -1,7 +1,7 @@
 // var player = require('play-sound')(opts = {player: "omxplayer"})
 const OmxManager = require('omx-manager');
 const fileManager = require("../utils/FileManager");
-const player;
+
 class AudioManager {
     constructor(){
         this.audio_player;
