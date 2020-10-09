@@ -1,8 +1,7 @@
 // var player = require('play-sound')(opts = {player: "omxplayer"})
-const player = require('omx-manager');
-
+const OmxManager = require('omx-manager');
 const fileManager = require("../utils/FileManager");
-
+const player;
 class AudioManager {
     constructor(){
         this.audio_player;
@@ -14,6 +13,8 @@ class AudioManager {
         ]
     
         this.audio_playlist_index = 0;
+        this.player = OmxManager()
+
     }
 
 
@@ -32,7 +33,7 @@ class AudioManager {
                 this.stopAudio();
             } 
 
-            this.audio_player = player.create(`./assets/${audio.uri}`, {'-o': 'alsa'});
+            this.audio_player = this.player.create(`./assets/${audio.uri}`, {'-o': 'alsa'});
             // this.audio_player = player.play(`./assets/${audio.uri}`), function (err) {
             //     if (err) throw err;
             //     console.log("Audio finished");
