@@ -152,16 +152,6 @@ async function onWebsocketMessage(r) {
       case EWSMessageType.STOP_SCHEDULE:
         console.log('STOP_SCHEDULE');
         stopScheduleOnDisplayPis();
-        // startVideoOnDisplayPis();
-        // await scheduleManager.loadCSV();
-        // let ac = {
-        //   ACTION: EWSMessageType.START_SCHEDULE,
-        //   raspberry_pi_id: 0,
-        //   payload: ''
-        // }
-        // setTimeout(() => {
-        //   performAction(ac)
-        // }, 5000)
         break;
       default:
         // console.log('THIS IS OKAY');
@@ -367,7 +357,7 @@ app.listen(PORT, async () => {
   await storeAudioInJSONFile();
   await storeScheduleInJSONFile();
   setClientFunctions();
-  // await scheduleManager.loadCSV();
+  scheduleManager.load()
 
   // setTimeout(function() {
   //   scheduleManager.start(performAction);

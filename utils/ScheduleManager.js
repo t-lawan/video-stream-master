@@ -1,6 +1,6 @@
 const testCSV = 'assets/test.csv'
 const realCSV = 'assets/real.csv'
-
+const FileManager = require('./FileManager.js')
 const csv = require('csvtojson/v2');
 const { EWSMessageType } = require('./Enums');
 
@@ -17,40 +17,11 @@ class ScheduleManager {
     }
 
 
-    async loadCSV() {
-        const jsonArray = await csv().fromFile(realCSV);
-        this.mapCSV(jsonArray);
-    }
-
-    async getCSV() {
-        const jsonArray = await csv().fromFile(realCSV);
-        let screenActions = jsonArray.map(function (screenAction, index) {
-
-            if(screenAction.ACTION === "STOP_VIDEO") {
-                screenAction = {
-                    ...screenAction,
-                    PAYLOAD: '782b91f0-28a2-41a0-8289-8ca8de9ba077',
-                    ACTION: EWSMessageType.START_VIDEO
-                }
-            }
-            return {
-                ...screenAction,
-                TIMECODE: parseInt(screenAction.TIMECODE) * 1000
-            }
-        })
-
-        let timeCodes = this.screen_actions.map((action) => {
-            return parseInt(action.TIMECODE)
-        })
-
-        screenActions.push({
-            ACTION: EWSMessageType.STOP_SCHEDULE,
-            RPI_ID: 0,
-            PAYLOAD: null,
-            TIMECODE: Math.max(...timeCodes) + 1000
-        })
-
-        return screenActions
+    load() {
+        let schedule = FileManager.getSchedule();
+        this.screen_actions = this.transformSchedule(schedule);
+            // const jsonArray = await csv().fromFile(realCSV);
+            // this.mapCSV(jsonArray);
     }
 
     transformSchedule(schedule) {
@@ -68,8 +39,6 @@ class ScheduleManager {
                 TIMECODE: parseInt(screenAction.TIMECODE) + 1000
             }
         })
-
-        console.log('xx', screenActions)
 
         let timeCodes = screenActions.map((action) => {
             return parseInt(action.TIMECODE)
