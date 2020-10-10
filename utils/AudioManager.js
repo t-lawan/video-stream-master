@@ -53,13 +53,8 @@ class AudioManager {
                 this.stopAudio();
             } 
 
-            this.audio_player = this.manager.create(`./assets/${audio.uri}`, {'-o': 'alsa'});
-            this.audio_player.play()
-            // this.audio_player = player.play(`./assets/${audio.uri}`), function (err) {
-            //     if (err) throw err;
-            //     console.log("Audio finished");
-
-            // }
+            this.audio_player = this.manager.create(`./assets/${audio.uri}`, {'-o': 'alsa', '--loop': true});
+            this.audio_player.play();
         }
 
     }
