@@ -305,7 +305,7 @@ function performAction(action) {
     payload: action.PAYLOAD
   });
   let date = new Date()
-  console.log('PI ID - ' + action.RPI_ID, '| TIMESTAMP - ' + date.getMinutes() + ':' + date.getSeconds() + ':' +  date.getMilliseconds() )
+  // console.log('PI ID - ' + action.RPI_ID, '| TIMESTAMP - ' + date.getMinutes() + ':' + date.getSeconds() + ':' +  date.getMilliseconds() )
 
   switch(action.ACTION) {
     case EWSMessageType.STOP_SCHEDULE:
