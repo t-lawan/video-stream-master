@@ -331,8 +331,7 @@ const IPMAP = {
   '3' : '30',
   '4' : '40',
   '5' : '50',
-  '6' : '60',
-  '7' : '70',
+  '6' : '60',s
 }
 
 function sendMessageToDisplay(message) {
