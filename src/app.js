@@ -305,7 +305,7 @@ function performAction(action) {
     payload: action.PAYLOAD
   });
   let date = new Date()
-  // console.log('PI ID - ' + action.RPI_ID, '| TIMESTAMP - ' + date.getMinutes() + ':' + date.getSeconds() + ':' +  date.getMilliseconds() )
+  console.log('PI ID - ' + action.RPI_ID, '| TIMESTAMP - ' + date.getMinutes() + ':' + date.getSeconds() + ':' +  date.getMilliseconds() )
 
   switch(action.ACTION) {
     case EWSMessageType.STOP_SCHEDULE:
@@ -338,7 +338,6 @@ const IPMAP = {
 
 function sendMessageToDisplay(message) {
   let action = JSON.parse(message)
-
   let socketClient = net.createConnection({
     host: `10.0.0.${IPMAP[action.raspberry_pi_id]}`,
     port: '1234'
