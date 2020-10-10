@@ -149,7 +149,6 @@ async function onWebsocketMessage(r) {
       case EWSMessageType.STOP_SCHEDULE:
         console.log('STOP_SCHEDULE');
         stopSchedule()
-
         break;
       default:
         // console.log('THIS IS OKAY');
@@ -296,6 +295,7 @@ async function storeScheduleInJSONFile() {
 
 function stopSchedule() {
   stopScheduleOnDisplayPis();
+  scheduleManager.stop();
   audioManager.stopAudio();
   scheduleManager.load(scheduleArray)
   audioManager.loopSingleAudio('b155dd1c-3889-435a-8b63-402a8aa9c96c')
