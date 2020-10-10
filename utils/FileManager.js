@@ -1,7 +1,7 @@
 const fs = require('fs');
 
 const SCREEN = 'screen';
-const SCHEDULE_ = 'schedule';
+const SCHEDULETITLE = 'schedule';
 const VIDEO = 'video'
 const AUDIO = 'audio'
 class FileManager {
@@ -14,7 +14,7 @@ class FileManager {
     }
 
     static storeSchedule(schedule) {
-        FileManager.store(SCHEDULE_, schedule)
+        FileManager.store(SCHEDULETITLE, schedule)
     }
 
     static storeAudio(audioList) {
@@ -30,7 +30,9 @@ class FileManager {
     }
 
     static getSchedule() {
-        return FileManager.get(SCHEDULE_);
+        let response = fs.readFileSync(`assets/${SCHEDULETITLE}.json`, 'utf8')
+        return response;
+        // return FileManager.get(SCHEDULETITLE);
     }
 
     static getAudio() {

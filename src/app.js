@@ -24,6 +24,7 @@ app.get("", (req, res) => {
 let client;
 let scheduleManager = new ScheduleManager();
 let audioManager = new AudioManager();
+let scheduleArray = []
 app.get("/video/:videoId", function(req, res) {
   let videoId = req.params.videoId
   let videos = fileManager.getVideos();
@@ -72,8 +73,8 @@ app.get("/video/:videoId", function(req, res) {
 });
 
 app.get('/schedule', async function(req, res) {
-  let schedule = fileManager.getSchedule()
-  let actions = scheduleManager.transformSchedule(schedule)
+  // let schedule = fileManager.getSchedule()
+  let actions = scheduleManager.transformSchedule(scheduleArray)
   res.send(JSON.stringify(actions));
 })
 
@@ -285,12 +286,14 @@ async function storeScreensInJSONFile() {
 async function storeAudioInJSONFile() {
   let response = await RequestManager.getAudio();
   let audio = response.data.data;
+
   fileManager.storeAudio(audio);
 }
 
 async function storeScheduleInJSONFile() {
   let response = await RequestManager.getSchedule();
   let schedule = response.data.data;
+  scheduleArray = schedule;
   fileManager.storeSchedule(schedule);
 }
 
@@ -357,7 +360,7 @@ app.listen(PORT, async () => {
   await storeAudioInJSONFile();
   await storeScheduleInJSONFile();
   setClientFunctions();
-  scheduleManager.load()
+  scheduleManager.load(scheduleArray)
 
   // setTimeout(function() {
   //   scheduleManager.start(performAction);

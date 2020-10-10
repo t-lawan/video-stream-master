@@ -17,9 +17,11 @@ class ScheduleManager {
     }
 
 
-    load() {
-        let schedule = FileManager.getSchedule();
+    load(schedule) {
+
+        // let schedule = FileManager.getSchedule();
         this.screen_actions = this.transformSchedule(schedule);
+
             // const jsonArray = await csv().fromFile(realCSV);
             // this.mapCSV(jsonArray);
     }
