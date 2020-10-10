@@ -148,8 +148,7 @@ async function onWebsocketMessage(r) {
         break;
       case EWSMessageType.STOP_SCHEDULE:
         console.log('STOP_SCHEDULE');
-        stopScheduleOnDisplayPis();
-        audioManager.stopAudio();
+        stopSchedule()
 
         break;
       default:
@@ -295,6 +294,13 @@ async function storeScheduleInJSONFile() {
   fileManager.storeSchedule(schedule);
 }
 
+function stopSchedule() {
+  stopScheduleOnDisplayPis();
+  audioManager.stopAudio();
+  scheduleManager.load(scheduleArray)
+  audioManager.loopSingleAudio('b155dd1c-3889-435a-8b63-402a8aa9c96c')
+}
+
 function performAction(action) {
   let message = JSON.stringify({
     client_type: EWSClientType.DISPLAY,
@@ -306,9 +312,7 @@ function performAction(action) {
 
   switch(action.ACTION) {
     case EWSMessageType.STOP_SCHEDULE:
-      stopScheduleOnDisplayPis();
-      audioManager.stopAudio();
-      scheduleManager.load(scheduleArray)
+      stopSchedule()
       break;
     case EWSMessageType.START_AUDIO:
       let id = action.PAYLOAD;
