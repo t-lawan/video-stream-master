@@ -347,7 +347,7 @@ function sendMessageToDisplay(message) {
     socketClient.destroy();
   })
   socketClient.on('error', function (err) {
-    console.log('ERROR')
+    console.log('ERROR', message)
   })
 
   
