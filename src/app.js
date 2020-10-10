@@ -133,7 +133,6 @@ function onWebsocketClose() {
  * @param {*} e
  */
 async function onWebsocketMessage(r) {
-  // console.log('onMessage')
   if (typeof r.data === 'string') {
     let message = JSON.parse(r.data);
     switch(message.message) {
@@ -142,9 +141,6 @@ async function onWebsocketMessage(r) {
         let id = message.payload;
         // audioManager.playSingleAudio(id);
         break;
-      case EWSMessageType.START_AUDIO_PLAYLIST:
-        // audioManager.playAudio()
-        // console.log('START_AUDIO');
       case EWSMessageType.START_SCHEDULE:
         console.log('START_SCHEDULE');
         startScheduleOnDisplayPis()
@@ -360,7 +356,7 @@ app.listen(PORT, async () => {
   await storeScheduleInJSONFile();
   setClientFunctions();
   scheduleManager.load(scheduleArray)
-
+  audioManager.loopSingleAudio('b155dd1c-3889-435a-8b63-402a8aa9c96c')
   // setTimeout(function() {
   //   scheduleManager.start(performAction);
   // }, 2000)
