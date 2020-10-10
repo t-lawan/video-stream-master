@@ -356,7 +356,7 @@ app.listen(PORT, async () => {
   await storeScheduleInJSONFile();
   setClientFunctions();
   scheduleManager.load(scheduleArray)
-  audioManager.loopSingleAudio('b155dd1c-3889-435a-8b63-402a8aa9c96c')
+  // audioManager.loopSingleAudio('b155dd1c-3889-435a-8b63-402a8aa9c96c')
   // setTimeout(function() {
   //   scheduleManager.start(performAction);
   // }, 2000)

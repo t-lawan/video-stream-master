@@ -35,10 +35,8 @@ class AudioManager {
 
             this.audio_player = this.manager.create(`./assets/${audio.uri}`, {'-o': 'alsa'});
             this.audio_player.on('play', function(){ 
-            let date = new Date()
-            console.log('AUDIO PLAYING', date.getMinutes() + ':' + date.getSeconds() + ':' + date.getMilliseconds())
                  
-            } )
+            })
             this.audio_player.play()
             let date = new Date()
             console.log('AFTER CALL AUDIO FUNCTION', date.getMinutes() + ':' + date.getSeconds() + ':' + date.getMilliseconds())
