@@ -149,6 +149,8 @@ async function onWebsocketMessage(r) {
       case EWSMessageType.STOP_SCHEDULE:
         console.log('STOP_SCHEDULE');
         stopScheduleOnDisplayPis();
+        audioManager.stopAudio();
+
         break;
       default:
         // console.log('THIS IS OKAY');
