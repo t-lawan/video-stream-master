@@ -14,6 +14,7 @@ class ScheduleManager {
         this.current_time = 0;
         this.clock;
         this.performAction;
+        this.is_running = false;
     }
 
 
@@ -96,8 +97,11 @@ class ScheduleManager {
     }
 
     start(callback) {
-        this.performAction = callback
-        this.clock = setInterval(this.sendCalls.bind(this), 20)
+        if(!this.is_running) {
+            this.is_running = true;
+            this.performAction = callback
+            this.clock = setInterval(this.sendCalls.bind(this), 20)
+        }
     }
 
     sendCalls() {
@@ -138,6 +142,7 @@ class ScheduleManager {
         clearInterval(this.clock);
         this.clock = null;
         this.current_time = 0;
+        this.is_running = false;
     }
 }
 
