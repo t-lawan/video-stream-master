@@ -314,6 +314,8 @@ function performAction(action) {
       break;
     case EWSMessageType.START_AUDIO:
       let id = action.PAYLOAD;
+      let date = new Date()
+      console.log('BEFORE CALL AUDIO FUNCTION', date.getMinutes() + ':' + date.getSeconds() + ':' + date.getMilliseconds())
       audioManager.playSingleAudio(id);
       break;
     default:
