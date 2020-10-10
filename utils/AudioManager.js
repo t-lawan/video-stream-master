@@ -60,9 +60,9 @@ class AudioManager {
     }
 
     stopAudio() {
-        if(this.audio_player) {
+        // if(this.audio_player) {
             this.audio_player.stop();
-        }
+        // }
     }
 }
 
