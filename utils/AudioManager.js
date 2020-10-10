@@ -42,7 +42,6 @@ class AudioManager {
             this.audio_player.play()
             let date = new Date()
             console.log('AFTER CALL AUDIO FUNCTION', date.getMinutes() + ':' + date.getSeconds() + ':' + date.getMilliseconds())
-            let date = new Date()
             // this.audio_player = player.play(`./assets/${audio.uri}`), function (err) {
             //     if (err) throw err;
             //     console.log("Audio finished");
