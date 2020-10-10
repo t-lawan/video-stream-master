@@ -78,10 +78,18 @@ class ScheduleManager {
                     ACTION: EWSMessageType.START_VIDEO
                 }
             }
-            return {
+            let newAction = {
                 ...action,
                 TIMECODE: (parseInt(screenAction.TIMECODE)) + 1000
             }
+            if(action.ACTION === "START_AUDIO") {
+                newAction = {
+                    ...action, 
+                    TIMECODE: (parseInt(screenAction.TIMECODE)) + 500
+                }
+            } 
+
+            return newAction;
         })
 
         let timeCodes = this.screen_actions.map((action) => {
