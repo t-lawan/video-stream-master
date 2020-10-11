@@ -22,9 +22,6 @@ class ScheduleManager {
 
         // let schedule = FileManager.getSchedule();
         this.screen_actions = this.transformSchedule(schedule);
-
-            // const jsonArray = await csv().fromFile(realCSV);
-            // this.mapCSV(jsonArray);
     }
 
     transformSchedule(schedule) {
@@ -67,51 +64,6 @@ class ScheduleManager {
         return screenActions
     }
 
-
-    mapCSV(screenActions) {
-        // this.screen_actions = screenActions.map(function (screenAction, index) {
-        //     return {
-        //         ...screenAction,
-        //         TIMECODE: (parseInt(screenAction.TIMECODE) * 1000) + 1000
-        //     }
-        // })
-
-        this.screen_actions = screenActions.map(function (screenAction, index) {
-
-            let action = screenAction;
-
-            if(action.ACTION === "STOP_VIDEO") {
-                action = {
-                    ...action,
-                    PAYLOAD: '782b91f0-28a2-41a0-8289-8ca8de9ba077',
-                    ACTION: EWSMessageType.START_VIDEO
-                }
-            }
-            let newAction = {
-                ...action,
-                TIMECODE: (parseInt(screenAction.TIMECODE)) + 1000
-            }
-            if(action.ACTION === "START_AUDIO") {
-                newAction = {
-                    ...action, 
-                    TIMECODE: (parseInt(screenAction.TIMECODE)) + 560
-                }
-            } 
-
-            return newAction;
-        })
-
-        let timeCodes = this.screen_actions.map((action) => {
-            return parseInt(action.TIMECODE)
-        })
-
-        this.screen_actions.push({
-            ACTION: EWSMessageType.STOP_SCHEDULE,
-            RPI_ID: 0,
-            PAYLOAD: null,
-            TIMECODE: Math.max(...timeCodes) + 1000
-        })
-    }
 
     start(callback) {
         if(!this.is_running) {
