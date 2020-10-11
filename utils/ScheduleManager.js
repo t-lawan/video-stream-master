@@ -94,7 +94,7 @@ class ScheduleManager {
             if(action.ACTION === "START_AUDIO") {
                 newAction = {
                     ...action, 
-                    TIMECODE: (parseInt(screenAction.TIMECODE)) + 540
+                    TIMECODE: (parseInt(screenAction.TIMECODE)) + 580
                 }
             } 
 
