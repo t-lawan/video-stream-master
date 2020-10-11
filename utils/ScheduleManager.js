@@ -10,7 +10,7 @@ const AudioMap = {
     'b155dd1c-3889-435a-8b63-402a8aa9c96c': 460, //1_intro_audio
     '09263068-0ee3-4a00-b6b5-938dced2b4f9': 440, //2_B1_audio
     '40d84d09-821c-4c4c-9b87-2c2f73b08b14': 440, //3_Sc1_audio
-    'b0eba59e-2b62-4310-970e-a17821e9b62c': 420, //4_B2_audio   
+    'b0eba59e-2b62-4310-970e-a17821e9b62c': 440, //4_B2_audio   
     '5b6269ec-7e96-47a6-b4d5-2e3d731fed61': 420, //5_Sc2_audio
     '64158e24-a306-41c3-a651-545d7314c14b': 420, //6_B3_audio
 

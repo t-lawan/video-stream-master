@@ -297,8 +297,8 @@ function stopSchedule() {
   audioManager.stopAudio();
   stopScheduleOnDisplayPis();
   scheduleManager.stop();
-  scheduleManager.load(scheduleArray)
   audioManager.loopSingleAudio('88016100-c0f1-4c35-87e2-862841be68b4')
+  scheduleManager.load(scheduleArray)
 }
 
 function performAction(action) {
