@@ -298,7 +298,7 @@ function stopSchedule() {
   stopScheduleOnDisplayPis();
   scheduleManager.stop();
   scheduleManager.load(scheduleArray)
-  audioManager.loopSingleAudio('b155dd1c-3889-435a-8b63-402a8aa9c96c')
+  audioManager.loopSingleAudio('88016100-c0f1-4c35-87e2-862841be68b4')
 }
 
 function performAction(action) {
@@ -361,7 +361,7 @@ app.listen(PORT, async () => {
   await storeScheduleInJSONFile();
   setClientFunctions();
   scheduleManager.load(scheduleArray)
-  audioManager.loopSingleAudio('b155dd1c-3889-435a-8b63-402a8aa9c96c')
+  audioManager.loopSingleAudio('88016100-c0f1-4c35-87e2-862841be68b4')
   // setTimeout(function() {
   //   scheduleManager.start(performAction);
   // }, 2000)
