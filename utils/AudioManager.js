@@ -34,6 +34,10 @@ class AudioManager {
             } 
 
             this.audio_player = this.manager.create(`./assets/${audio.uri}`, {'-o': 'alsa'});
+            this.audio_player.on('play', function() {
+                let date = new Date()
+                console.log('PLAY AUDIO', date.getMinutes() + ':' + date.getSeconds() + ':' + date.getMilliseconds())
+            })
             this.audio_player.play()
             // this.audio_player = player.play(`./assets/${audio.uri}`), function (err) {
             //     if (err) throw err;
