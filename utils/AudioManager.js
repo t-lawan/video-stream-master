@@ -29,9 +29,9 @@ class AudioManager {
         })
 
         if (audio) {
-            // if(this.audio_player) {
-            //     this.stopAudio();
-            // } 
+            if(this.audio_player) {
+                this.stopAudio();
+            } 
 
             this.audio_player = this.manager.create(`./assets/${audio.uri}`, {'-o': 'alsa'});
             this.audio_player.on('play', function() {
