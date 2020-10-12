@@ -30,9 +30,9 @@ class FileManager {
     }
 
     static getSchedule() {
-        let response = fs.readFileSync(`assets/${SCHEDULETITLE}.json`, 'utf8')
-        return response;
-        // return FileManager.get(SCHEDULETITLE);
+        // let response = fs.readFileSync(`assets/${SCHEDULETITLE}.json`, 'utf8')
+        // return response;
+        return FileManager.get(SCHEDULETITLE);
     }
 
     static getAudio() {

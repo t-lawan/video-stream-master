@@ -72,7 +72,7 @@ app.get("/video/:videoId", function(req, res) {
   }
 });
 
-app.get('/schedule', async function(req, res) {
+app.get('/schedule/', async function(req, res) {
   // let schedule = fileManager.getSchedule()
   let actions = scheduleManager.transformSchedule(scheduleArray)
   res.send(JSON.stringify(actions));
@@ -82,6 +82,11 @@ app.get('/schedule', async function(req, res) {
 app.get('/screens/', async function(req, res) {
   let screens = fileManager.getScreens();
   res.send(JSON.stringify(screens))
+})
+
+app.get('/videos/', async function(req, res) {
+  let videos = fileManager.getVideos();
+  res.send(JSON.stringify(videos))
 })
 
 function onWebsocketOpen(r) {
@@ -101,16 +106,11 @@ function initialiseWebsocketOpen() {
   });
 
   client.send(message, function (err){
-   // onStartUp()
 
     if(err) {
       setTimeout(() => {
         initialiseWebsocketOpen();
       }, 500);
-    } else {
-     // onStartUp()
-    //  startVideoOnDisplayPis()
-
     }
   });
 }
@@ -166,15 +166,6 @@ function setClientFunctions() {
   client.onopen = onWebsocketOpen;
   client.onclose = onWebsocketClose;
   client.onmessage = onWebsocketMessage;
-}
-
-/**
- * This function sends the initial requests to start process.
- *
- */
-function onStartUp() {
-  startAudioOnMaster()
-  startAudioOnAdmin()
 }
 
 /**
@@ -297,7 +288,7 @@ function stopSchedule() {
   audioManager.stopAudio();
   stopScheduleOnDisplayPis();
   scheduleManager.stop();
-  audioManager.loopSingleAudio('88016100-c0f1-4c35-87e2-862841be68b4')
+  audioManager.loopSingleAudio()
   scheduleManager.load(scheduleArray)
 }
 
@@ -315,8 +306,8 @@ function performAction(action) {
       stopSchedule()
       break;
     case EWSMessageType.START_AUDIO:
-      let id = action.PAYLOAD;
-      audioManager.playSingleAudio(id, Date.now());
+      let payload = action.PAYLOAD;
+      audioManager.playSingleAudio(payload);
       break;
     default:
       sendMessageToDisplay(message);
@@ -361,7 +352,7 @@ app.listen(PORT, async () => {
   await storeScheduleInJSONFile();
   setClientFunctions();
   scheduleManager.load(scheduleArray)
-  audioManager.loopSingleAudio('88016100-c0f1-4c35-87e2-862841be68b4')
+  audioManager.loopSingleAudio()
   // setTimeout(function() {
   //   scheduleManager.start(performAction);
   // }, 2000)

@@ -8,3 +8,5 @@ assets/vid_01.mp4
 *.wav
 
 assets/schedule.json
+
+*.json
