@@ -24,7 +24,7 @@ const AudioNewMap = {
     '1_intro_audio': 460, //1_intro_audio
     '2_B1_audio': 460, //2_B1_audio
     '3_Sc1_audio': 460, //3_Sc1_audio
-    '4_B2_audio': 460, //4_B2_audio   
+    '4_B2_audio': 440, //4_B2_audio   
     '5_Sc2_audio': 420, //5_Sc2_audio
     '6_B3_audio': 420, //6_B3_audio
 
