@@ -22,7 +22,6 @@ const AudioMap = {
 
 const AudioNewMap = {
     '1_intro_audio': 460, //1_intro_audio
-    'b155dd1c-3889-435a-8b63-402a8aa9c96c': 460, //1_intro_audio
     '2_B1_audio': 460, //2_B1_audio
     '3_Sc1_audio': 460, //3_Sc1_audio
     '4_B2_audio': 460, //4_B2_audio   
@@ -76,7 +75,7 @@ class ScheduleManager {
             if(screenAction.ACTION === "START_AUDIO") {
                 newAction = {
                     ...screenAction, 
-                    TIMECODE: (parseInt(screenAction.TIMECODE)) + (AudioMap[screenAction['PAYLOAD']] ? AudioMap[screenAction['PAYLOAD']] : 460)
+                    TIMECODE: (parseInt(screenAction.TIMECODE)) + (AudioNewMap[screenAction['PAYLOAD']] ? AudioNewMap[screenAction['PAYLOAD']] : 460)
                 }
             } 
 
