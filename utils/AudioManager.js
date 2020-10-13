@@ -37,6 +37,7 @@ class AudioManager {
   }
 
   loopSingleAudio() {
+      console.log('LOOP SINGLE AUDIO START')
     if (this.audio_player) {
       this.stopAudio();
     }
@@ -46,10 +47,14 @@ class AudioManager {
       "--loop": true
     });
     this.audio_player.play();
+    console.log('LOOP SINGLE AUDIO START')
+
   }
 
   stopAudio() {
     // if(this.audio_player) {
+      console.log(' STOP AUDIO')
+
     this.audio_player.stop();
     // }
   }
