@@ -124,7 +124,7 @@ function onWebsocketClose() {
   // Restart the websocket connection
   setTimeout(function(){
     setClientFunctions();
-  }, 1000)
+  }, 500)
 }
 
 /**
