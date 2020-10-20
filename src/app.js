@@ -143,12 +143,16 @@ async function onWebsocketMessage(r) {
         break;
       case EWSMessageType.START_SCHEDULE:
         console.log('START_SCHEDULE');
-        startScheduleOnDisplayPis()
-        scheduleManager.start(performAction);
-        break;
+        if(!scheduleManager.is_running) {
+          startScheduleOnDisplayPis()
+          scheduleManager.start(performAction);
+          break;
+        }
       case EWSMessageType.STOP_SCHEDULE:
         console.log('STOP_SCHEDULE');
-        stopSchedule()
+        if(scheduleManager.is_running) {
+          stopSchedule()
+        }
         break;
       default:
         // console.log('THIS IS OKAY');
@@ -307,7 +311,7 @@ function performAction(action) {
       break;
     case EWSMessageType.START_AUDIO:
       let payload = action.PAYLOAD;
-      audioManager.playSingleAudio(payload);
+      // audioManager.playSingleAudio(payload);
       break;
     default:
       sendMessageToDisplay(message);
@@ -352,7 +356,7 @@ app.listen(PORT, async () => {
   await storeScheduleInJSONFile();
   setClientFunctions();
   scheduleManager.load(scheduleArray)
-  audioManager.loopSingleAudio()
+  // audioManager.loopSingleAudio()
   // setTimeout(function() {
   //   scheduleManager.start(performAction);
   // }, 2000)
