@@ -21,21 +21,11 @@ const AudioMap = {
 }
 
 const AudioNewMap = {
-    '1_intro_audio': 460, //1_intro_audio
-    '2_B1_audio': 460, //2_B1_audio
-    '3_Sc1_audio': 460, //3_Sc1_audio
-    '4_B2_audio': 440, //4_B2_audio   
-    '5_Sc2_audio': 420, //5_Sc2_audio
-    '6_B3_audio': 420, //6_B3_audio
-
-
-
-    '3_4_Sc1andBC2v2': 460, //3_4_Sc1andBC2v2
-    '3_4_Sc1andBC2v3': 460, // 3_4_Sc1andBC2v3
-    '80322349-0700-4df8-995d-27f0944694dd': 420, //5_Sc2
-    '4ae17eca-a725-4c4b-9018-a91c169f72b2': 460, // 2_Broadcast1_audio
-    'e1389bcc-ae81-4f56-84d9-7564cd43abd8': 460, //3_4_Sc1andBC2
-
+    'ACT1_AUDIO': 460, //1_intro_audio
+    'ACT2_AUDIO': 460, //2_B1_audio
+    'ACT3_AUDIO': 460, //3_Sc1_audio
+    'ACT4_AUDIO': 440, //4_B2_audio   
+    'ACT5_AUDIO': 420, //5_Sc2_audio
 }
 
 class ScheduleManager {
