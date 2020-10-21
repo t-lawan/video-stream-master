@@ -29,6 +29,8 @@ class AudioManager {
         this.stopAudio();
       }
 
+      console.log('AUDIO START')
+
       this.audio_player = this.manager.create(`./assets/${uri}.wav`, {
         // "-o": "alsa"
         "-o": "local"
@@ -52,6 +54,8 @@ class AudioManager {
 
   stopAudio() {
     if(this.audio_player) {
+      console.log('AUDIO STOP')
+
     this.audio_player.stop();
     // this.audio_player.setOmxCommand('stop');
     }
