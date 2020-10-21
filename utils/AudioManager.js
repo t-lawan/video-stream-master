@@ -31,6 +31,7 @@ class AudioManager {
 
       this.audio_player = this.manager.create(`./assets/${uri}.wav`, {
         // "-o": "alsa"
+        "-o": "local"
       });
       this.audio_player.play();
     // }
@@ -45,6 +46,7 @@ class AudioManager {
 
     this.audio_player = this.manager.create(`./assets/INTERMISSION_AUDIO.wav`, {
       // "-o": "alsa",
+      "-o": "local",
       "--loop": true
     });
     this.audio_player.play();
