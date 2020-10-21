@@ -150,9 +150,9 @@ async function onWebsocketMessage(r) {
         }
       case EWSMessageType.STOP_SCHEDULE:
         console.log('STOP_SCHEDULE');
-        if(scheduleManager.is_running) {
+        // if(scheduleManager.is_running) {
           stopSchedule()
-        }
+        // }
         break;
       default:
         // console.log('THIS IS OKAY');
