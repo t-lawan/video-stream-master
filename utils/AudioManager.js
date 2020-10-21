@@ -25,17 +25,21 @@ class AudioManager {
     // });
 
     // if (audio) {
+
+
+      console.log('AUDIO START')
       if (this.audio_player) {
         this.stopAudio();
       }
 
-      console.log('AUDIO START')
 
       this.audio_player = this.manager.create(`./assets/${uri}.wav`, {
         // "-o": "alsa"
         "-o": "local"
       });
       this.audio_player.play();
+      console.log('AUDIO PLAY')
+
     // }
   }
 
