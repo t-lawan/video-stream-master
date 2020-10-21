@@ -42,18 +42,12 @@ class AudioManager {
       this.stopAudio();
     }
 
-    console.log('AUDIO STARTED')
-
     this.audio_player = this.manager.create(`./assets/INTERMISSION_AUDIO.wav`, {
       // "-o": "alsa",
       "-o": "local",
       "--loop": true
     });
     this.audio_player.play();
-
-    console.log('AUDIO PLAYING')
-
-
   }
 
   stopAudio() {
