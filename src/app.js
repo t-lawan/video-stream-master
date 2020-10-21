@@ -139,7 +139,7 @@ async function onWebsocketMessage(r) {
       case EWSMessageType.START_AUDIO:
         console.log('START_AUDIO');
         let id = message.payload;
-        // audioManager.playSingleAudio(id);
+        audioManager.playSingleAudio(id);
         break;
       case EWSMessageType.START_SCHEDULE:
         console.log('START_SCHEDULE');
@@ -150,9 +150,9 @@ async function onWebsocketMessage(r) {
         }
       case EWSMessageType.STOP_SCHEDULE:
         console.log('STOP_SCHEDULE');
-        // if(scheduleManager.is_running) {
+        if(scheduleManager.is_running) {
           stopSchedule()
-        // }
+        }
         break;
       default:
         // console.log('THIS IS OKAY');
