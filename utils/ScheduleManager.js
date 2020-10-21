@@ -49,6 +49,8 @@ class ScheduleManager {
                     ...screenAction, 
                     TIMECODE: (parseInt(screenAction.TIMECODE)) + (AudioNewMap[screenAction['PAYLOAD']] ? AudioNewMap[screenAction['PAYLOAD']] : 460)
                 }
+
+                console.log('AUDIO ACTION', newAction)
             } 
 
             return newAction;
