@@ -311,7 +311,7 @@ function performAction(action) {
       break;
     case EWSMessageType.START_AUDIO:
       let payload = action.PAYLOAD;
-      // audioManager.playSingleAudio(payload);
+      audioManager.playSingleAudio(payload);
       break;
     default:
       sendMessageToDisplay(message);
