@@ -289,8 +289,8 @@ async function storeScheduleInJSONFile() {
 }
 
 function stopSchedule() {
-  audioManager.stopAudio();
   stopScheduleOnDisplayPis();
+  audioManager.stopAudio();
   scheduleManager.stop();
   audioManager.loopSingleAudio()
   scheduleManager.load(scheduleArray)
