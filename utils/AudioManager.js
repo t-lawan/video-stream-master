@@ -50,9 +50,10 @@ class AudioManager {
   }
 
   stopAudio() {
-    // if(this.audio_player) {
+    if(this.audio_player) {
     this.audio_player.stop();
-    // }
+    this.audio_player.setOmxCommand('stop');
+    }
   }
 }
 
