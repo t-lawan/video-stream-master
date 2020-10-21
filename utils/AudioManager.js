@@ -42,7 +42,7 @@ class AudioManager {
     }
 
     this.audio_player = this.manager.create(`./assets/INTERMISSION_AUDIO.wav`, {
-      "-o": "alsa",
+      // "-o": "alsa",
       "--loop": true
     });
     this.audio_player.play();
