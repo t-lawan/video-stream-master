@@ -30,7 +30,7 @@ class AudioManager {
       }
 
       this.audio_player = this.manager.create(`./assets/${uri}.wav`, {
-        "-o": "alsa"
+        // "-o": "alsa"
       });
       this.audio_player.play();
     // }
