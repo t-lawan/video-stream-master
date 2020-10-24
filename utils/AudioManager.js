@@ -27,18 +27,16 @@ class AudioManager {
     // if (audio) {
 
 
-      console.log('AUDIO START')
       if (this.audio_player) {
         this.stopAudio();
       }
 
 
       this.audio_player = this.manager.create(`./assets/${uri}.wav`, {
-        // "-o": "alsa"
-        "-o": "local"
+        "-o": "alsa"
+        //"-o": "local"
       });
       this.audio_player.play();
-      console.log('AUDIO PLAY')
 
     // }
   }
@@ -49,20 +47,21 @@ class AudioManager {
     }
 
     this.audio_player = this.manager.create(`./assets/INTERMISSION_AUDIO.wav`, {
-      // "-o": "alsa",
-      "-o": "local",
+       "-o": "alsa",
+      //"-o": "local",
       "--loop": true
     });
     this.audio_player.play();
   }
 
   stopAudio() {
-    if(this.audio_player) {
-      console.log('AUDIO STOP')
+   // if(this.audio_player) {
+      
 
     this.audio_player.stop();
+    this.audio_player = null;
     // this.audio_player.setOmxCommand('stop');
-    }
+  //  }
   }
 }
 

@@ -4,10 +4,10 @@ const { EWSMessageType } = require('./Enums');
 
 const AudioNewMap = {
     'ACT1_AUDIO': 460,
-    'ACT2_AUDIO': 460,
-    'ACT3_AUDIO': 460,
+    'ACT2_AUDIO': 440,
+    'ACT3_AUDIO': 420,
     'ACT4_AUDIO': 440,   
-    'ACT5_AUDIO': 420,
+    'ACT5_AUDIO': 400,
 }
 
 class ScheduleManager {
@@ -35,9 +35,11 @@ class ScheduleManager {
             if(screenAction.ACTION === "STOP_VIDEO") {
                 screenAction = {
                     ...screenAction,
-                    PAYLOAD: '782b91f0-28a2-41a0-8289-8ca8de9ba077', //blank
+                    PAYLOAD: 'blank', //blank
                     ACTION: EWSMessageType.START_VIDEO
                 }
+                
+                console.log('ACTION', screenAction);
             }
 
             let newAction = {
@@ -49,8 +51,6 @@ class ScheduleManager {
                     ...screenAction, 
                     TIMECODE: (parseInt(screenAction.TIMECODE)) + (AudioNewMap[screenAction['PAYLOAD']] ? AudioNewMap[screenAction['PAYLOAD']] : 460)
                 }
-
-                console.log('AUDIO ACTION', newAction)
             } 
 
             return newAction;
